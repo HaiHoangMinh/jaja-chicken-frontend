@@ -35,29 +35,24 @@
 					<div class="col-md-8 clearfix">
 						<div class="shop-menu clearfix pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href=""><i class="fa fa-star"></i>Yêu thích</a></li>
+								
 								<?php 
 									$customer_id = Session::get('customer_id');
-									$shipping_id = Session::get('shipping_id');
-									if ($customer_id!=null && $shipping_id==null ) {
+									$customer_name = Session::get('customer_name');
+									if ($customer_id!=null) {
 										
 									
 								?>
-								<li><a href=""><i class="fa fa-user"></i>Tài khoản</a></li>
-								<li><a href="{{URL::to('/checkout')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
-								<?php 
-									} elseif($customer_id!=null && $shipping_id!=null){
-
-									
-								?>
-								<li><a href=""><i class="fa fa-user"></i>Tài khoản</a></li>
-								<li><a href="{{URL::to('/payment')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
+								<li><span style="color: white; font-size: 14px">Xin chào: {{$customer_name}}</span></li>
+								<br/>
+								<li><a href=""><i class="fa fa-pencil-square-o"></i>Đơn hàng đã đặt</a></li>
+								<li><a href="{{URL::to('/payment')}}"><i class="fa fa-credit-card"></i> Thanh toán</a></li>
 								<?php 
 									} else{
 
 									
 								?>
-								<li><a href="{{URL::to('/login-checkout')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
+								<li><a href="{{URL::to('/checkout')}}"><i class="fa fa-credit-card"></i> Thanh toán</a></li>
 								<?php 
 									}
 							
@@ -69,7 +64,7 @@
 									if ($customer_id!=null) {
 
 								?>
-								<li><a href="{{URL::to('/logout-checkout')}}"><i class="fa fa-lock"></i> Đăng xuất</a></li>
+								<li><a href="{{URL::to('/logout-checkout')}}"><i class="fa fa-sign-out"></i> Đăng xuất</a></li>
 								<?php 
 									} else{
 

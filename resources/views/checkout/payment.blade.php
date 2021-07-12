@@ -47,7 +47,8 @@
                     @if(Session::get('cart')==true)
                             @php
 								$total = 0;
-                                $shipping = 0;
+                                $shipping = 20000;
+                                $service = 3000;
 						    @endphp
 
                     @foreach(Session::get('cart') as $key=>$cart)
@@ -85,39 +86,12 @@
                     
                     @endforeach
                     <tr>
-                        <td><input type="submit" value="Cập nhật giỏ hàng" name="update_qty" class="btn btn-default check_out"></td>
-                        <td><a class="btn btn-default check_out" href="{{url('/delete-all')}}">Xóa toàn bộ sản phẩm </a></td>
                         <td>
-                            <li>Tổng tiền: <span>{{number_format($total,0,',','.')}}đ</span></li>
+                            <li>Tổng tiền: <span name="total">{{number_format($total,0,',','.')}}đ</span></li>
                             <li>Phí dịch vụ: <span>3.000đ</span></li>
                             <li>Phí vận chuyển: <span>20.000đ</span></li>
-                            <li>Tiền phải trả: <span>$61</span></li>
-                            <td>
-                                <form action="{{url('/check_coupon')}}" method="POST">
-                                    <input type="text" class="form-control" placeholder="Nhập mã giảm giá" name="coupon">
-                                    <input type="submit" value="Tính mã giảm giá" class="btn btn-default check_out"
-                                    name="check_coupon">
-                                    
-                                </form>
-                                
-                                <?php 
-									$customer_id = Session::get('customer_id');
-									if ($customer_id!=null) {
-										
-									
-								?>
-								<a class="btn btn-default check_out" href="{{URL::to('/checkout')}}">Thanh toán</a>
-								<?php 
-									} else{
-
-									
-								?>
-								<a class="btn btn-default check_out" href="{{URL::to('/login-checkout')}}">Thanh toán</a>
-								<?php 
-									}
-							
-								?>
-                            </td>
+                            <li>Tiền phải trả: <span>{{number_format($total+$shipping+$service,0,',','.')}}đ</span></li>
+                            
                         </td>
                     </tr>
                     @else
@@ -135,18 +109,19 @@
             </form>
             </table>
         </div>
-        <h4>Chọn hình thức thanh toán</h4>
-        <br/>
+        
         <form action="{{URL::to('/save-bill')}}" method="POST">
             @csrf
-            <div class="payment-options">
-                <span>
-                    <label><input type="checkbox" name="payment_option" value="Thẻ ATM">Trả bằng thẻ ATM</label>
-                </span>
-                <span>
-                    <label><input type="checkbox" name="payment_option" value="Tiền mặt"> Thanh toán khi nhận hàng</label>
-                </span>
-                <input type="submit" value="Hoàn tất" name="send_bill" class="btn btn-primary btn-sm float-right">
+            
+            <div class="payment-options col-sm-6">
+                <h4>Ghi chú cho đơn hàng</h4>
+                <textarea name="shipping_note"  placeholder="VD: Ít cay,thêm tương ớt,..." rows="10"></textarea>
+                <h4>Chọn hình thức thanh toán</h4>
+                <select name="payment_option" id="" >
+                    <option  value="1">Thanh toán khi nhận hàng</option>
+                    <option  value="2" >Thanh toán qua thẻ ATM</option>
+                    <input type="submit" value="Hoàn tất" name="send_bill" class="btn btn-primary ">
+                </select>
                 
                 
             </div>

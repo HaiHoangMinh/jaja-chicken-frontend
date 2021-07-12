@@ -3,17 +3,12 @@
         <li><a href="{{route('home')}}" class="active">Trang chủ</a></li>
 
        
-        <li class="dropdown"><a href="#">Thực đơn
-            <i class="fa fa-angle-down"></i></a>
-            <ul role="menu" class="sub-menu">
-                @foreach($categoryLimit as $category)
-                <li><a href="{{route('category.product',['slug' => $category->slug,'id' => $category->id])}}">{{$category->name}}</a></li>
-                @endforeach
-            </ul>
+        <li class="dropdown"><a href="{{URL::to('/thuc-don')}}">Thực đơn
+            <i class="fa "></i></a>
+            
         </li> 
         
-        <li><a href="#">Khuyến mãi</a></li>
-        <li><a href="#">Dịch vụ</a></li>
-        <li><a href="#">Phản hồi</a></li>
+        <li><a href="#">Mã khuyến mãi</a></li>
+        <li><a href="#">Thông tin</a></li>
     </ul>
 </div>

@@ -72,37 +72,38 @@
                     <tr>
                         <td><input type="submit" value="Cập nhật giỏ hàng" name="update_qty" class="btn btn-default check_out"></td>
                         <td><a class="btn btn-default check_out" href="{{url('/delete-all')}}">Xóa toàn bộ sản phẩm </a></td>
+                        <td></td>
+                        <td >
+                            <li style="margin-top: -15px">Tổng tiền món ăn: <span>{{number_format($total,0,',','.')}}đ</span></li>
+                            <li>Mã giảm giá: 20.000đ</span></li>
+                            <li>Tiền phải trả: <span>{{number_format($total,0,',','.')}}đ</span></li>
+                            
+                        </td>
                         <td>
-                            <li>Tổng tiền: <span>{{number_format($total,0,',','.')}}đ</span></li>
-                            <li>Phí dịch vụ: <span>3.000đ</span></li>
-                            <li>Phí vận chuyển: <span>20.000đ</span></li>
-                            <li>Tiền phải trả: <span>$61</span></li>
-                            <td>
-                                <form action="{{url('/check_coupon')}}" method="POST">
-                                    <input type="text" class="form-control" placeholder="Nhập mã giảm giá" name="coupon">
-                                    <input type="submit" value="Tính mã giảm giá" class="btn btn-default check_out"
-                                    name="check_coupon">
-                                    
-                                </form>
+                            <form action="{{url('/check_coupon')}}" method="POST">
+                                <input type="text" class="form-control" placeholder="Nhập mã giảm giá" name="coupon" style="margin-left: 18px">
+                                <input type="submit" value="Tính mã giảm giá" class="btn btn-default check_out"
+                                name="check_coupon">
                                 
-                                <?php 
-									$customer_id = Session::get('customer_id');
-									if ($customer_id!=null) {
-										
-									
-								?>
-								<a class="btn btn-default check_out" href="{{URL::to('/checkout')}}">Thanh toán</a>
-								<?php 
-									} else{
+                            </form>
+                            
+                            <?php 
+                                $customer_id = Session::get('customer_id');
+                                if ($customer_id!=null) {
+                                    
+                                
+                            ?>
+                            <a class="btn btn-default check_out" href="{{URL::to('/payment')}}">Thanh toán</a>
+                            <?php 
+                                } else{
 
-									
-								?>
-								<a class="btn btn-default check_out" href="{{URL::to('/login-checkout')}}">Thanh toán</a>
-								<?php 
-									}
-							
-								?>
-                            </td>
+                                
+                            ?>
+                            <a class="btn btn-default check_out" href="{{URL::to('/checkout')}}">Thanh toán</a>
+                            <?php 
+                                }
+                        
+                            ?>
                         </td>
                     </tr>
                     @else
@@ -122,22 +123,7 @@
         </div>
     </div>
 </section> <!--/#cart_items-->
-<section id="do_action">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="total_area">
-                    <ul>
-                       
-                    </ul>
 
-                        
-                        
-                </div>
-            </div>
-        </div>
-    </div>
-</section><!--/#do_action-->
 @endsection
 
 

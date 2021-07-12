@@ -1,5 +1,5 @@
 <div class="recommended_items"><!--recommended_items-->
-    <h2 class="title text-center">recommended items</h2>
+    <h2 class="title text-center">Món ăn được gợi ý</h2>
     
     <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
@@ -7,7 +7,7 @@
             @if($key%3==0)
                 <div class="item {{$key == 0 ? 'active':'' }}">
             @endif
-            <div class="col-sm-4">
+            <div class="col-sm-3" style="margin-left: 55px ">
                 <div class="product-image-wrapper">
                     <div class="single-products">
                         <div class="productinfo text-center">

@@ -21,29 +21,113 @@
             </ol>
         </div><!--/breadcrums-->
 
-        
        
+        <div class="review-payment">
+            <h2>Xem lại đơn hàng</h2>
+        </div>
+        <div class="table-responsive cart_info">
+            <form action="{{url('/update-cart')}}" method="POST">
+                @csrf
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Hình ảnh</td>
+                        <td class="description">Tên sản phẩm</td>
+                        <td class="price">Giá</td>
+                        <td class="quantity">Số lượng</td>
+                        <td class="total">Thành tiền</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if(Session::get('cart')==true)
+                            @php
+								$total = 0;
+                                $shipping = 20000;
+                                $service = 3000;
+						    @endphp
 
-        <div class="register-req">
-            <p>Vui lòng nhập thông tin người nhận hàng</p>
-        </div><!--/register-req-->
+                    @foreach(Session::get('cart') as $key=>$cart)
+                            @php
+								$subtotal = $cart['product_price']*$cart['product_qty'];
+								$total+=$subtotal;
+							@endphp
 
+                    <tr>
+                        <td class="cart_product">
+                            <img src="{{config('app.base_url').$cart['product_image']}}" alt="" width="100">
+                        </td>
+                        <td class="cart_description">
+                            <h4><a href="">{{$cart['product_name']}}</a></h4>
+                            <p>Product ID: {{$cart['product_id']}} </p>
+                        </td>
+                        <td class="cart_price">
+                            <p>{{number_format($cart['product_price'],0,',','.')}}đ</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                                
+                                    <input class="cart_quantity_input" type="number" name="cart_qty[{{$cart['session_id']}}]" value="{{$cart['product_qty']}}" min="1" size="1">
+                                   
+                                
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price">{{number_format($subtotal,0,',','.')}}đ</p>
+                        </td>
+                        <td class="cart_delete">
+                            <a class="cart_quantity_delete" href="{{url('/delete-product/'.$cart['session_id'])}}"><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+                    
+                    @endforeach
+                    <tr>
+                        <td>
+                            <li>Tổng tiền: <span name="total">{{number_format($total,0,',','.')}}đ</span></li>
+                            <li>Phí dịch vụ: <span>3.000đ</span></li>
+                            <li>Phí vận chuyển: <span>20.000đ</span></li>
+                            <li>Tiền phải trả: <span>{{number_format($total+$shipping+$service,0,',','.')}}đ</span></li>
+                            
+                        </td>
+                    </tr>
+                    @else
+                    <tr>
+                        <td colspan="5"><center>
+                            @php
+                            echo "Vui lòng thêm sản phẩm vào giỏ hàng" 
+                        @endphp
+                        </center></td>
+                        
+                    </tr>
+                    @endif
+                </tbody>
+                
+            </form>
+            </table>
+        </div>
         <div class="shopper-informations">
             <div class="row">
                 
                 <div class="col-sm-12 clearfix">
+                    <p>THỜI GIAN ĐẶT HÀNG: {{$Time}}</p>
                     <div class="bill-to">
-                        <p>Thông tin giao hàng</p>
+                        <p>GIAO HÀNG TỚI:</p>
                         <div class="form-one">
                             <form action="{{URL::to('/save-checkout')}}" method="POST">
                                 @csrf
-                                <input type="email" placeholder="Email*" name="shipping_email">
-                                <input type="text" placeholder="Họ và tên *"  name="shipping_name">
-                                <input type="text" placeholder="Địa chỉ *"  name="shipping_address">
-                                <input type="text" placeholder="SĐT *"  name="shipping_phone">
-                                <p>Ghi chú</p>
+                                <input type="emai" placeholder="Email người nhận *"  name="shipping_email">
+                                <input type="text" placeholder="Họ và tên người nhận *"  name="shipping_name">
+                                <input type="text" placeholder="SĐT người nhận*"  name="shipping_phone">
+                                <input type="text" placeholder="Địa chỉ nhận hàng*"  name="shipping_address">
+                                <h4>Ghi chú cho đơn hàng</h4>
                                 <textarea name="shipping_note"  placeholder="VD: Ít cay,thêm tương ớt,..." rows="10"></textarea>
-                                <input type="submit" value="Thanh toán" name="send_bill" class="btn btn-primary btn-sm">
+                                <h4>Chọn hình thức thanh toán</h4>
+                                <select name="payment_option" id="" >
+                                        <option  value="1">Thanh toán khi nhận hàng</option>
+                                        <option  value="2" >Thanh toán qua thẻ ATM</option>
+                                        <input type="submit" value="Hoàn tất" name="send_bill" class="btn btn-primary ">
+                                </select>
+                    
                             </form>
                         </div>
                         
@@ -52,23 +136,8 @@
                					
             </div>
         </div>
-        <div class="review-payment">
-            <h2>Xem lại đơn hàng</h2>
-        </div>
 
-        
-        <div class="payment-options">
-                <span>
-                    <label><input type="checkbox"> Direct Bank Transfer</label>
-                </span>
-                <span>
-                    <label><input type="checkbox"> Check Payment</label>
-                </span>
-                <span>
-                    <label><input type="checkbox"> Paypal</label>
-                </span>
-            </div>
-    </div>
 </section> <!--/#cart_items-->
+
 @endsection
 

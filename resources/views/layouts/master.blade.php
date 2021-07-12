@@ -8,12 +8,12 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="{{asset('images/logo-removebg-preview.png')}}" type="image/x-icon">
     @yield('title')
-    <link href="{{asset('eshopper/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('eshopper/css/font-awesome.min.css')}}" rel="stylesheet">
-    <link href="{{asset('eshopper/css/prettyPhoto.css')}}" rel="stylesheet">
-    <link href="{{asset('eshopper/css/price-range.css')}}" rel="stylesheet">
-    <link href="{{asset('eshopper/css/animate.css')}}" rel="stylesheet">
-	<link href="{{asset('eshopper/css/main.css')}}" rel="stylesheet">
+    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/prettyPhoto.css')}}" rel="stylesheet">
+    <link href="{{asset('css/price-range.css')}}" rel="stylesheet">
+    <link href="{{asset('css/animate.css')}}" rel="stylesheet">
+	<link href="{{asset('css/main.css')}}" rel="stylesheet">
     <link href="{{asset('css/sweetAlert.css')}}" rel="stylesheet">
 	@yield('css')
         
@@ -23,12 +23,12 @@
     @yield('content')   
     @include('components.footer')
           
-    <script src="{{asset('eshopper/js/jquery.js')}}"></script>
-	<script src="{{asset('eshopper/js/bootstrap.min.js')}}"></script>
-	<script src="{{asset('eshopper/js/jquery.scrollUp.min.js')}}"></script>
-	<script src="{{asset('eshopper/js/price-range.js')}}"></script>
-    <script src="{{asset('eshopper/js/jquery.prettyPhoto.js')}}"></script>
-    <script src="{{asset('eshopper/js/main.js')}}"></script>
+    <script src="{{asset('js/jquery.js')}}"></script>
+	<script src="{{asset('js/bootstrap.min.js')}}"></script>
+	<script src="{{asset('js/jquery.scrollUp.min.js')}}"></script>
+	<script src="{{asset('js/price-range.js')}}"></script>
+    <script src="{{asset('js/jquery.prettyPhoto.js')}}"></script>
+    <script src="{{asset('js/main.js')}}"></script>
     <script src="{{asset('js/sweetAlert.js')}}"></script>
     <script>
         $(document).ready(function () {

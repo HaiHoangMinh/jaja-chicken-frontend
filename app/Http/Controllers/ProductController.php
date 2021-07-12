@@ -8,6 +8,7 @@ use App\ProductImage;
 use App\ProductTag;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -22,4 +23,13 @@ class ProductController extends Controller
         $productRecommend = Product::latest('view_count','desc')->take(12)->get();
         return view('product.detail',compact('categoryLimit','product','categories','productRecommend','productSameTags','productImages'));
     }
+    public function list_menu()
+    {
+        $categoryLimit = Category::where('parent_id',0)->get();
+        $products = DB::table('products')->paginate(12);
+        $categories = Category::where('parent_id',0)->get();
+        $productRecommend = Product::latest('view_count','desc')->take(12)->get();
+        return view('product.list-menu',compact('categoryLimit','products','categories','productRecommend'));
+    }
+
 }

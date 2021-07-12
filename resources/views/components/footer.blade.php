@@ -14,7 +14,7 @@
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="{{asset('eshopper/images/home/iframe1.png')}}" alt="" />
+										<img src="{{asset('images/video1.jpg')}}" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
@@ -29,7 +29,7 @@
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="eshopper/images/home/iframe2.png" alt="" />
+										<img src="images/video2.jpg" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
@@ -44,7 +44,7 @@
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="eshopper/images/home/iframe3.png" alt="" />
+										<img src="images/video3.png" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
@@ -59,7 +59,7 @@
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="eshopper/images/home/iframe4.png" alt="" />
+										<img src="images/video4.jpg" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
@@ -72,7 +72,7 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="address">
-							<img src="{{asset('eshopper/images/home/map.png')}}" alt="" />
+							<img src="{{asset('images/map.png')}}" alt="" />
 							<p>Số nhà 269 - Thôn Mỹ Cầu - xã Tân Mỹ- Tp. Bắc Giang - Tỉnh Bắc Giang</p>
 						</div>
 					</div>
