@@ -102,8 +102,8 @@
 						<form action="{{URL::to('/tim-kiem')}}" method="POST">
 							@csrf
 							<div class="search_box pull-right">
-								<input type="text" name="keyword" placeholder="Tìm kiếm" />
-								
+								<input type="text" name="keyword" placeholder="VD: gà cay" />
+								<input type="submit" value="Tìm kiếm" class="btn btn-primary">
 							</div>
 						</form>
 						
