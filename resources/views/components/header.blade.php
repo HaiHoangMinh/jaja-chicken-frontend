@@ -45,7 +45,7 @@
 								?>
 								<li><span style="color: white; font-size: 14px">Xin chào: {{$customer_name}}</span></li>
 								<br/>
-								<li><a href=""><i class="fa fa-pencil-square-o"></i>Đơn hàng đã đặt</a></li>
+								<li><a href="{{URL::to('/lich-su-mua-hang')}}"><i class="fa fa-pencil-square-o"></i>Đơn hàng đã đặt</a></li>
 								<li><a href="{{URL::to('/payment')}}"><i class="fa fa-credit-card"></i> Thanh toán</a></li>
 								<?php 
 									} else{
@@ -87,7 +87,7 @@
 		<div class="header-bottom"><!--header-bottom-->
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-8">
+					<div class="col-sm-9">
 						<div class="navbar-header">
 							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 								<span class="sr-only">Toggle navigation</span>
@@ -102,8 +102,8 @@
 						<form action="{{URL::to('/tim-kiem')}}" method="POST">
 							@csrf
 							<div class="search_box pull-right">
-								<input type="text" name="keyword" placeholder="VD: gà cay" />
-								<input type="submit" value="Tìm kiếm" class="btn btn-primary">
+								<input type="text" name="keyword" placeholder="Tìm kiếm" />
+
 							</div>
 						</form>
 						

@@ -6,7 +6,10 @@ use App\Category;
 use App\Product;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;  
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use PHPUnit\Framework\Constraint\Count;
+
 session_start();
 
 class CartController extends Controller
@@ -111,6 +114,48 @@ class CartController extends Controller
     public function check_coupon(Request $request)
     {
         $data = $request->all();
+        $coupon = DB::table('coupons')->where('coupon_code',$data['coupon'])->first();
+        if ($coupon && $coupon->coupon_status==1) {
+            $count_coupon = $coupon->coupon_time;
+            
+            if ($count_coupon >0) {
+                $coupon_session = Session::get('coupon');
+                if ($coupon_session==true) {
+                    $is_avaiable = 0;
+                    if ($is_avaiable==0) {
+                        $cou[] = array(
+                            'coupon_code' => $coupon->coupon_code,
+                            'coupon_condition' => $coupon->coupon_condition,
+                            'coupon_number' => $coupon->coupon_number,
+                            'coupon_time' => $coupon->coupon_time,
+                        );
+                        Session::put('coupon',$cou);
+                        
+                    }
+                } else {
+                    $cou[] = array(
+                        'coupon_code' => $coupon->coupon_code,
+                        'coupon_condition' => $coupon->coupon_condition,
+                        'coupon_number' => $coupon->coupon_number,
+                        'coupon_time' => $coupon->coupon_time,
+                    );
+                    Session::put('coupon',$cou);
+                }
+                Session::save();
+                return redirect()->back()->with('message','Thêm mã giảm giá thành công!');
+            }
+        } else {
+            return redirect()->back()->with('message','Mã giảm giá không đúng hoặc đã hết hạn');
+        }
+    }
+    public function unset_coupon()
+    {
+        $coupon = Session::get('coupon');
+        if ($coupon == true) {
+            Session::forget('coupon');
+            return redirect()->back()->with('message','Đã xóa mã');
+        }
+       
     }
     
 }

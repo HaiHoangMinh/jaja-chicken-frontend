@@ -4,9 +4,14 @@
     <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
+    {{-- Seo Meta --}}
+    <meta name="description" content="Thả ga ăn gà rán với nhiều combo ưu đãi & giao hàng miễn phí! , Tận hưởng những khoảnh khắc trọn vẹn cùng Jollibee.">
     <meta name="author" content="">
+    <meta name="keywords" content="JAJA-Chicken, gà rán hàng đầu Nhật Bản"/>
+    <meta name="robots" content="all"/>
+    <link rel="canonical" href="http://localhost:8000/">
     <link rel="shortcut icon" href="{{asset('images/logo-removebg-preview.png')}}" type="image/x-icon">
+    
     @yield('title')
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">

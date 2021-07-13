@@ -83,6 +83,22 @@
                     @endforeach
                     <tr>
                         <td>
+                            <?php
+                            
+                            if(Session::get('coupon') != null)
+                            {
+                                foreach (Session::get('coupon') as $key => $cou) {
+                                   if ($cou['coupon_condition'] == 1) {
+                                      $total -= $cou['coupon_number']/100 * $total;
+                                   } else {
+                                    $total -= $cou['coupon_number'];
+                                   }
+                                }
+                            } else {
+                                $total -= 0;
+                            }
+                            
+                        ?>
                             <li>Tổng tiền: <span name="total">{{number_format($total,0,',','.')}}đ</span></li>
                             <li>Phí dịch vụ: <span>3.000đ</span></li>
                             <li>Phí vận chuyển: <span>20.000đ</span></li>

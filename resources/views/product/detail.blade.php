@@ -102,10 +102,21 @@
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="{{config('app.base_url').$productSameTag->feature_image_path}}" alt="" />
-                                            <h2>{{$productSameTag->price}}</h2>
-                                            <p>{{$productSameTag->name}}</p>
-                                            <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Đặt hàng</button>
+                                            <form >
+                                                @csrf
+                                                <input type="hidden" value="{{$productSameTag->id}}" class="cart_product_id_{{$productSameTag->id}}">
+                                                <input type="hidden" value="{{$productSameTag->name}}" class="cart_product_name_{{$productSameTag->id}}">
+                                                <input type="hidden" value="{{$productSameTag->feature_image_path}}" class="cart_product_image_{{$productSameTag->id}}">
+                                                <input type="hidden" value="{{$productSameTag->price}}" class="cart_product_price_{{$productSameTag->id}}">
+                                                <input type="hidden" value="1" class="cart_product_qty_{{$productSameTag->id}}">
+                                                <img src="{{config('app.base_url').$productSameTag->feature_image_path}}" alt="" />
+                                                <h2>{{$productSameTag->price}}</h2>
+                                                <p>{{$productSameTag->name}}</p>
+                                                <button type="button" class="btn btn-default add-to-cart" 
+                                                 data-id_product="{{$productSameTag->id}}" name="add-to-cart">Thêm giỏ hàng</button>
+                                            </form>
+                                            
+    
                                         </div>
                                     </div>
                                 </div>

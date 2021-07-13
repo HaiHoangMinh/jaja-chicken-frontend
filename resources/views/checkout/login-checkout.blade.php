@@ -42,6 +42,7 @@
                         <input type="email" placeholder="Email Address" name="customer_email"/>
                         <input type="password" placeholder="Password" name="customer_password"/>
                         <input type="text" placeholder="SĐT" name="customer_phone"/>
+                        <input type="text" placeholder="Địa chỉ" name="customer_address"/>
                         <button type="submit" class="btn btn-default">Đăng kí</button>
                     </form>
                 </div><!--/sign up form-->

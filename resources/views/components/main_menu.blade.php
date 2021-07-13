@@ -8,7 +8,7 @@
             
         </li> 
         
-        <li><a href="#">Mã khuyến mãi</a></li>
-        <li><a href="#">Thông tin</a></li>
+        <li><a href="#">Khuyến mãi</a></li>
+        <li><a href="#">Thông tin JAJA</a></li>
     </ul>
 </div>

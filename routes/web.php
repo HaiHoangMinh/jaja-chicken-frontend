@@ -34,6 +34,7 @@ Route::get('/delete-all','CartController@delete_all_product');
 
 // Coupon
 Route::post('/check-coupon','CartController@check_coupon');
+Route::get('/unset-coupon','CartController@unset_coupon');
 
 
 //Checkout
@@ -44,6 +45,8 @@ Route::post('/login','CheckoutController@login');
 Route::get('/checkout','CheckoutController@checkout');
 Route::get('/show-checkout','CheckoutController@show_checkout');
 Route::post('/save-checkout','CheckoutController@save_checkout');
+Route::get('/lich-su-mua-hang','CheckoutController@history');
+
 //Payment
 Route::get('/payment','CheckoutController@payment');
 Route::post('/save-bill','CheckoutController@save_bill');
