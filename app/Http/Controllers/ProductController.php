@@ -26,7 +26,7 @@ class ProductController extends Controller
     public function list_menu()
     {
         $categoryLimit = Category::where('parent_id',0)->get();
-        $products = DB::table('products')->paginate(12);
+        $products = DB::table('products')->paginate(9);
         $categories = Category::where('parent_id',0)->get();
         $productRecommend = Product::latest('view_count','desc')->take(12)->get();
         return view('product.list-menu',compact('categoryLimit','products','categories','productRecommend'));

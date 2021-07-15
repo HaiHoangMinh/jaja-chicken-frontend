@@ -18,6 +18,9 @@ Route::get('/category/{slug}/{id}',[
     'as' => 'category.product',
     'uses' => 'CategoryController@index'
 ]);
+//Promotion
+Route::get('/khuyen-mai', 'PromotionController@index');
+Route::get('/khuyen-mai/{id}/{slug}', 'PromotionController@detail');
 // Product
 Route::get('/product/{id}',[
     'as' => 'product.detail',
@@ -41,11 +44,22 @@ Route::get('/unset-coupon','CartController@unset_coupon');
 Route::get('/login-checkout','CheckoutController@login_checkout');
 Route::get('/logout-checkout','CheckoutController@logout_checkout');
 Route::post('/add-customer','CheckoutController@add_customer');
+Route::post('/select-address','CheckoutController@select_address');
 Route::post('/login','CheckoutController@login');
 Route::get('/checkout','CheckoutController@checkout');
 Route::get('/show-checkout','CheckoutController@show_checkout');
 Route::post('/save-checkout','CheckoutController@save_checkout');
-Route::get('/lich-su-mua-hang','CheckoutController@history');
+
+// Account
+
+Route::get('/khach-hang','AccountController@index');
+Route::get('/lich-su-mua-hang','AccountController@history');
+Route::get('/doi-mat-khau','AccountController@change_pass');
+Route::get('/doi-dia-chi','AccountController@change_address');
+Route::post('/update-address','AccountController@update_address');
+Route::post('/update-pass','AccountController@update_password');
+Route::post('/update-account','AccountController@update_account');
+
 
 //Payment
 Route::get('/payment','CheckoutController@payment');

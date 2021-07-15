@@ -113,11 +113,16 @@ class CartController extends Controller
     }
     public function check_coupon(Request $request)
     {
+       if (Session::get('customer_id') != null) {
         $data = $request->all();
         $coupon = DB::table('coupons')->where('coupon_code',$data['coupon'])->first();
+        $couponUsed = DB::table('coupons')->where('coupon_code',$data['coupon'])->
+        where('coupon_used','like','%'.Session::get('customer_id').'%')->first();
         if ($coupon && $coupon->coupon_status==1) {
             $count_coupon = $coupon->coupon_time;
-            
+            if ($couponUsed!=null) {
+                return redirect()->back()->with('message','Mã giảm giá đã sử dụng!');
+            }
             if ($count_coupon >0) {
                 $coupon_session = Session::get('coupon');
                 if ($coupon_session==true) {
@@ -147,6 +152,9 @@ class CartController extends Controller
         } else {
             return redirect()->back()->with('message','Mã giảm giá không đúng hoặc đã hết hạn');
         }
+       } else {
+         return redirect()->back()->with('message','Vui lòng đăng ký hoặc đăng nhập để sử dụng mã giảm giá');
+       }
     }
     public function unset_coupon()
     {

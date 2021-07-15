@@ -119,19 +119,11 @@
                             ?>
                         </td>
                     </tr>
-                    @else
-                    <tr>
-                        <td colspan="5"><center>
-                            @php
-                            echo "Vui lòng thêm sản phẩm vào giỏ hàng" 
-                        @endphp
-                        </center></td>
-                        
-                    </tr>
-                    @endif
+                   
                 </tbody>
                 
             </form>
+            
             <tr>
                 <td>
                     <form action="{{url('/check-coupon')}}" method="POST">
@@ -148,7 +140,18 @@
                     ?>
                 </td>
             </tr>
+            @else
+            <tr>
+                <td colspan="5"><center>
+                    @php
+                    echo "Vui lòng thêm sản phẩm vào giỏ hàng" 
+                @endphp
+                </center></td>
+                
+            </tr>
+            @endif
             </table>
+            
         </div>
     </div>
 </section> <!--/#cart_items-->

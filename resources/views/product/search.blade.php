@@ -18,6 +18,7 @@
 			<div class="row">			
 				<div class="col-sm-12 padding-right">
 					<div class="features_items">
+						<br/>
 						<h2 class="title text-center">Kết quả tìm kiếm</h2>
 						@foreach($productSearch as $product)
 						<div class="col-sm-4">

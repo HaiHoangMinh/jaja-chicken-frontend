@@ -45,7 +45,7 @@
 								?>
 								<li><span style="color: white; font-size: 14px">Xin chào: {{$customer_name}}</span></li>
 								<br/>
-								<li><a href="{{URL::to('/lich-su-mua-hang')}}"><i class="fa fa-pencil-square-o"></i>Đơn hàng đã đặt</a></li>
+								<li><a href="{{URL::to('/khach-hang')}}"><i class="fa fa-user"></i>Tài khoản</a></li>
 								<li><a href="{{URL::to('/payment')}}"><i class="fa fa-credit-card"></i> Thanh toán</a></li>
 								<?php 
 									} else{

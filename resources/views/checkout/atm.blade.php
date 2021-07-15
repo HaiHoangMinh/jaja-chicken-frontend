@@ -23,9 +23,12 @@
                         <br/>
                         
                         <br/>
-                        <form action="{{URL::to('/')}}">
-                            <input type="submit" value="Quay lại trang chủ" class="btn btn-default" />
-                        </form>
+						<center>
+							<form action="{{URL::to('/')}}">
+                            	<input type="submit" value="Quay lại trang chủ" class="btn btn-default" />
+                        	</form>
+						</center>
+                        
 					</div>
 					
 				</div>

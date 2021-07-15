@@ -107,7 +107,7 @@
                             <li>Phí dịch vụ: <span>3.000đ</span></li>
                             <li>Phí vận chuyển: <span>20.000đ</span></li>
                             <li>Tiền phải trả: <span>{{number_format($total+$shipping+$service,0,',','.')}}đ</span></li>
-                            
+                            <span>Bạn có thể nhập mã giảm giá cho đơn hàng trong giỏ hàng </span>
                         </td>
                     </tr>
                     @else
@@ -136,13 +136,18 @@
                 <select name="payment_option" id="" >
                     <option  value="1">Thanh toán khi nhận hàng</option>
                     <option  value="2" >Thanh toán qua thẻ ATM</option>
+                    
                     <input type="submit" value="Hoàn tất" name="send_bill" class="btn btn-primary ">
                 </select>
                 
                 
+                
             </div>
         </form>
-       
+        <?php
+                        $message = Session::get('message');
+                        echo $message;
+                    ?>
     </div>
 </section> <!--/#cart_items-->
 @endsection

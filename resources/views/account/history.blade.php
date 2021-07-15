@@ -13,21 +13,35 @@
 
 @section('content')
 <section id="cart_items">
+    
     <div class="container">
-        <div class="breadcrumbs">
-            <ol class="breadcrumb">
-              <li><a href="{{route('home')}}">Home</a></li>
-              <li class="active">Lịch sử mua hàng</li>
-            </ol>
+        <div class="row">
+            <div class="col-sm-3 brands-name " style="margin-top: 28px" >
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="{{URL::to('/khach-hang')}}">Thông tin tài khoản</a></li>
+                    <br/>
+                    <li><a href="{{URL::to('/lich-su-mua-hang')}}">Lịch sử đơn hàng</a></li>
+                    <br/>
+                    <li><a href="{{URL::to('/doi-mat-khau')}}">Đổi mật khẩu</a></li>
+                    <br/>
+                    <li><a href="{{URL::to('/doi-dia-chi')}}">Địa chỉ giao hàng</a></li>
+                    <br/>
+                    <li><a href="{{URL::to('/vi-coupon')}}">Mã khuyến mãi</a></li>
+                    <br/>
+                    <li><a href="{{URL::to('/thong-bao')}}">Thông báo</a></li>
+                    <hr/>
+                    <li><a href="{{URL::to('/logout-checkout')}}">Đăng xuất</a></li>
+                </ul>
+            </div>	
+            <div class="col-sm-9">
+                <div class="breadcrumbs">
+            
         </div><!--/breadcrums-->
 
        
-        <div class="review-payment">
             <h2>Đơn hàng đã đặt</h2>
-        </div>
         <div class="table-responsive cart_info">
-            <form action="" method="POST">
-                @csrf
+
             <table class="table table-condensed">
                 <thead>
                     <tr class="cart_menu">
@@ -63,9 +77,12 @@
                     @endforeach
                 </tbody>
                 
-            </form>
             </table>
+            {{$bills->links()}}
         </div>
+            </div>
+        </div>
+        
         
 
 </section> <!--/#cart_items-->

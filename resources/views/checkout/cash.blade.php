@@ -21,11 +21,13 @@
                         <br/>
 						<h2 class="title text-center">Cảm ơn bạn đã đặt hàng tại JAJA</h2>
                         <br/>
-						<h3>Vui lòng chuẩn bị số tiền khi nhận hàng</h3>
-                        <br/>
-                        <form action="{{route('home')}}">
+						<center>
+							<h3>Vui lòng chuẩn bị số tiền thanh toán khi nhận hàng</h3>
+                        	<br/>
+                        	<form action="{{route('home')}}">
                             <input type="submit" value="Quay lại trang chủ" class="btn btn-default" />
                         </form>
+						</center>
 					</div>
 					
 				</div>

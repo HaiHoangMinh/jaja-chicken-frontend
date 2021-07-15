@@ -21,15 +21,49 @@ class CheckoutController extends Controller
         $products = Product::latest()->take(6)->get();
         $productRecommend = Product::latest('view_count','desc')->take(12)->get();
         $categoryLimit = Category::where('parent_id',0)->get();
-        return view('checkout.login-checkout',compact('sliders','categories','products','productRecommend','categoryLimit'));
+        $data1= DB::table('tinhthanhpho')->where('matp',1)->first();
+        $data2 = DB::table('tinhthanhpho')->where('matp',24)->first();
+        $city =array();
+        $city[0] = $data1;
+        $city[1] = $data2;
+        return view('checkout.login-checkout',compact('sliders','categories','products',
+        'productRecommend','categoryLimit','city'));
+    }
+    public function select_address(Request $request)
+    {
+        $data = $request->all();
+            if ($data['action']) {
+                $output = '';
+                if ($data['action'] == 'city') {
+                    $select_province = DB::table('quanhuyen')->where('matp',$data['ma_id'])->get();
+                    $output .='<option value="">'."Chọn quận huyện".'</option>';
+                    foreach ($select_province as $key => $province) {
+                        $output .='<option value="'.$province->maqh.'">'.$province->name.'</option>';
+                    }
+                    
+                }else{
+                    $select_wards = DB::table('xaphuongthitran')->where('maqh',$data['ma_id'])->get();
+                    $output .='<option value="">'."Chọn xã phường".'</option>';
+                    foreach ($select_wards as $key => $wards) {
+                        $output .='<option value="'.$wards->xaid.'">'.$wards->name.'</option>';
+                    }
+                }
+                echo $output;
+            }
     }
     public function add_customer(Request $request)
     {
         $data = array();
+        $city = DB::table('tinhthanhpho')->where('matp',$request->city)->first()->name;
+        $province = DB::table('quanhuyen')->where('maqh',$request->province)->first()->name;
+        $wards = DB::table('xaphuongthitran')->where('xaid',$request->wards)->first()->name;
         $data['name'] = $request->customer_name;
         $data['email'] = $request->customer_email;
         $data['phone_number'] = $request->customer_phone;
-        $data['address'] = $request->customer_address;
+        $data['address'] = $request->home . " - " . 
+        $wards . " - " . 
+        $province . " - " . 
+        $city;
         $data['password'] = md5($request->customer_password);
         
         $customer_id = DB::table('customers')->insertGetId($data);
@@ -69,7 +103,13 @@ class CheckoutController extends Controller
         $productRecommend = Product::latest('view_count','desc')->take(12)->get();
         $categoryLimit = Category::where('parent_id',0)->take(3)->get();
         $Time = Carbon::now();
-        return view('checkout.show-checkout',compact('sliders','categories','products','productRecommend','categoryLimit','Time'));
+        $data1= DB::table('tinhthanhpho')->where('matp',1)->first();
+        $data2 = DB::table('tinhthanhpho')->where('matp',24)->first();
+        $city =array();
+        $city[0] = $data1;
+        $city[1] = $data2;
+        return view('checkout.show-checkout',compact('sliders','categories','products',
+        'productRecommend','categoryLimit','Time','city'));
     }
 
     public function save_checkout(Request $request)
@@ -77,12 +117,17 @@ class CheckoutController extends Controller
         $data = array();
         $cart = Session::get('cart');
         $total = 0;
-        $coupon = Session::get('coupon')[0];
+        $city = DB::table('tinhthanhpho')->where('matp',$request->city)->first()->name;
+        $province = DB::table('quanhuyen')->where('maqh',$request->province)->first()->name;
+        $wards = DB::table('xaphuongthitran')->where('xaid',$request->wards)->first()->name;
         if($cart != null)
         {
             $data['shipping_name'] = $request->shipping_name;
         $data['shipping_phone'] = $request->shipping_phone;
-        $data['shipping_address'] = $request->shipping_address;
+        $data['shipping_address'] = $request->home . " - " . 
+        $wards . " - " . 
+        $province . " - " . 
+        $city;
         $data['shipping_email'] = $request->shipping_email;
         $shipping_id = DB::table('shippings')->insertGetId($data);
 
@@ -102,26 +147,10 @@ class CheckoutController extends Controller
         foreach ($cart as $key => $value) {
             $total += $value['product_price']*$value['product_qty'];
         }
-        if($coupon !=null)
-            {
-                $coupon['coupon_time'] -= 1;
-                if($coupon['coupon_condition'] == 1)
-            {
-                $total -= ($coupon['coupon_number']/100 *$total);
-            }
-            else {
-                $total -= $coupon['coupon_number'];
-            }
-            } else {
-                $total -= 0;
-            }
+       
         $bills_data['total'] = $total;
         $bills_id = DB::table('bills')->insertGetId($bills_data);
-        DB::table('coupons')
-        ->where('coupon_code',$coupon['coupon_code'])
-        ->update([
-            'coupon_time' => $coupon['coupon_time']
-        ]);
+        
         // bill detail
         $data_detail = array();
         foreach ($cart as $key => $val) {
@@ -137,7 +166,7 @@ class CheckoutController extends Controller
        }
         }
         else {
-            return Redirect('/');
+            return redirect()->back()->with('message','Bạn không có gì để thanh toán !');
         }
     }
     public function payment()
@@ -159,8 +188,8 @@ class CheckoutController extends Controller
         $data = array();
         $total = 0;
         $cart = Session::get('cart');
-        $coupon = Session::get('coupon')[0];
-        
+        $coupons = Session::get('coupon');
+        $coupon_used = Session::get('customer_id').",";
         if ($cart !=null) {
             $data['payment_method'] = $request->payment_option;
             $data['status'] = "Đang chờ thanh toán";
@@ -175,26 +204,37 @@ class CheckoutController extends Controller
             foreach ($cart as $key => $value) {
                 $total += $value['product_price']*$value['product_qty'];
             }
-            if($coupon !=null)
+            if($coupons !=null)
             {
-                $coupon['coupon_time'] -= 1;
-                if($coupon['coupon_condition'] == 1)
-            {
-                $total -= ($coupon['coupon_number']/100 *$total);
-            }
-            else {
-                $total -= $coupon['coupon_number'];
-            }
+                foreach ($coupons as $key => $coupon) {  
+                   if($coupon['coupon_condition'] == 1)
+                {
+                    $total -= ($coupon['coupon_number']/100 *$total);
+                }
+                else {
+                    $total -= $coupon['coupon_number'];
+                }
+                }
+                foreach ($coupons as $key => $coupon) {
+                    DB::table('coupons')
+                    ->where('coupon_code',$coupon['coupon_code'])
+                    ->update([
+                    'coupon_time' => $coupon['coupon_time']-1
+                    ]);
+                    DB::table('coupons')
+                    ->where('coupon_code',$coupon['coupon_code'])
+                    ->update([
+                    'coupon_used' => $coupon_used
+                ]);
+                }
+               
             } else {
                 $total -= 0;
             }
             $bills_data['total'] = $total;
             $bills_id = DB::table('bills')->insertGetId($bills_data);
-            DB::table('coupons')
-            ->where('coupon_code',$coupon['coupon_code'])
-            ->update([
-                'coupon_time' => $coupon['coupon_time']
-            ]);
+            
+            
             // bill detail
             $data_detail = array();
             foreach ($cart as $key => $val) {
@@ -203,23 +243,17 @@ class CheckoutController extends Controller
                 $data_detail['bill_id'] = $bills_id;
                 $data_detail_id = DB::table('bill_details')->insert($data_detail);
             }
+            Session::forget('coupon');
             if ($data['payment_method'] == 1 ) {
                 return view('checkout.cash');
             } else {
                 return view('checkout.atm');
             }
         } else {
-            return Redirect('/');
+            return redirect()->back()->with('message','Bạn không có gì để thanh toán !');
         }
         
     }
-    // Lich su mua hang
-    public function history()
-    {
-        $data['customer_id'] = Session::get('customer_id');
-        $bills = DB::table('bills')->where('customer_id', $data['customer_id'])->get();
-        $customer = DB::table('customers')->where('id', $data['customer_id'])->first();
-        return view('checkout.history',compact('bills','customer'));
-    }
+   
     
 }

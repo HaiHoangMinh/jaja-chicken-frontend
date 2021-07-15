@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Thanh toán</title>
+    <title>Thanh toán không dùng tài khoản</title>
 @endsection
 
 @section('css')
@@ -134,7 +134,25 @@
                                 <input type="emai" placeholder="Email người nhận *"  name="shipping_email">
                                 <input type="text" placeholder="Họ và tên người nhận *"  name="shipping_name">
                                 <input type="text" placeholder="SĐT người nhận*"  name="shipping_phone">
-                                <input type="text" placeholder="Địa chỉ nhận hàng*"  name="shipping_address">
+                                <label for="">Chọn địa chỉ</label>
+                                <select class="form-control choose city" name="city" id="city" >
+                                    <option value="">Chọn tỉnh/thành phố</option>
+                                  @foreach($city as $item)
+                                  <option value="{{$item->matp}}">{{$item->name}}</option>
+                                  @endforeach
+                                </select>
+                                <br/>
+                                <select class="form-control choose province" name="province" id="province" >
+                                    <option value="">Chọn quận huyện</option>
+                                    
+                                  </select>
+                                  <br/>
+                                  <select class="form-control wards" name="wards" id="wards" >
+                                    <option value="">Chọn xã phường</option>
+                                  </select>
+                                  <br/>
+                                  <input type="text" class="form-control home" placeholder="Số nhà/Đường/Nghách"
+                                  name = "home">
                                 <h4>Ghi chú cho đơn hàng</h4>
                                 <textarea name="shipping_note"  placeholder="VD: Ít cay,thêm tương ớt,..." rows="10"></textarea>
                                 <h4>Chọn hình thức thanh toán</h4>
@@ -151,6 +169,11 @@
                 </div>
                					
             </div>
+                <?php
+                        $message = Session::get('message');
+                        echo $message;
+                    ?>
+            
         </div>
 
 </section> <!--/#cart_items-->

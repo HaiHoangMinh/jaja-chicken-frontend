@@ -18,12 +18,13 @@ class HomeController extends Controller
         $meta_title = "Jaja Chicken Việt Nam";
         $url_con = $request->url();
         $sliders = Slider::latest()->get();
+        $promotions = DB::table('promotions')->get();
         $categories = Category::where('parent_id',0)->get();
         $products = Product::latest()->take(6)->get();
         $productRecommend = Product::latest('view_count','desc')->take(12)->get();
         $categoryLimit = Category::where('parent_id',0)->get();
         return view('home.home',compact('sliders','categories','products','productRecommend','categoryLimit',
-        'meta_keywords','meta_title','url_con','meta_desc'));
+        'meta_keywords','meta_title','url_con','meta_desc','promotions'));
     }
     public function search(Request $request)
     {
