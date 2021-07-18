@@ -92,7 +92,7 @@
                     <div class="tab-content">
                         <div class="tab-pane fade" id="details" >
                             <h3>Thông tin món ăn:</h3>
-                            <p>{{$product->content}}</p>
+                            {!!$product->content!!}
                         </div>
                         
                         
@@ -128,24 +128,60 @@
                         <div class="tab-pane fade active in" id="reviews" >
                             <div class="col-sm-12">
                                 <ul>
-                                    <li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
+                                    <li><a href=""><i class="fa fa-user"></i>Hoang Long</a></li>
                                     <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
-                                    <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
+                                    <li><a href=""><i class="fa fa-calendar-o"></i>17/7/2021</a></li>
                                 </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                                <p><b>Viết phản hồi</b></p>
-                                
-                                <form action="#">
-                                    <span>
-                                        <input type="text" placeholder="Tên của bạn"/>
-                                        <input type="email" placeholder="Email Address"/>
-                                    </span>
-                                    <textarea name="" ></textarea>
+                                <style>
+                                    .style_feedback{
+                                        border: 1px solid #ddd;
+                                        border-radius: 10px;
+                                        background: #F0F0E9;
+                                    }
+                                </style>
+                                <p><strong>Phản hồi từ khách hàng</strong></p>
+                                <form>
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="feedback_product_id" value="{{$product->id}}" 
+                                    class="feedback_product_id">
+                                    <div id="feedback_show"></div>
                                     
-                                    <button type="button" class="btn btn-default pull-right">
-                                        Gửi đi
-                                    </button>
+                                    <p></p>
                                 </form>
+                               
+                               @if(Session::get('customer_id'))
+                               <p><strong>Đánh giá sản phẩm</strong></p>
+                               <ul class="list-inline rating" title="Average Rating">
+                                @for($count=1;$count<=5;$count++)
+                                @php
+                                    if($count <= $rating){
+                                        $color = 'color:#ffcc00;';
+                                    } else {
+                                        $color = 'color:#ccc;';
+                                    }
+                                @endphp
+                                <li title="star_rating"
+                                id="{{$product->id}}-{{$count}}"
+                                data-index="{{$count}}"
+                                data-product_id="{{$product->id}}"
+                                data-rating="{{$rating}}"
+                                class="rating"
+                                style="cursor: pointer; color: #ccc;font-size: 30px"
+                                >&#9733</li>
+                                @endfor
+                            </ul>
+                                <form >
+                                    @csrf
+                                    <textarea name="feedback" class="feedback_content" ></textarea>
+                                    
+                                    <button type="button" class="btn btn-default pull-right send-feedback">
+                                        Thêm phản hồi
+                                    </button>
+                                    <div id="notify_feedback"></div>
+                                    
+                                    
+                                </form>
+                                @endif
                             </div>
                         </div>
                         

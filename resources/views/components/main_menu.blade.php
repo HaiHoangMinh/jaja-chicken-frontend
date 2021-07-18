@@ -9,6 +9,6 @@
         </li> 
         
         <li><a href="{{URL::to('/khuyen-mai')}}">Khuyến mãi</a></li>
-        <li><a href="#">Thông tin JAJA</a></li>
+        <li><a href="{{URL::to('/lien-he')}}">Thông tin JAJA</a></li>
     </ul>
 </div>

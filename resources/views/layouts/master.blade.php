@@ -36,6 +36,101 @@
     <script src="{{asset('js/main.js')}}"></script>
     <script src="{{asset('js/sweetAlert.js')}}"></script>
     <script>
+      $(document).ready(function(){
+        $("#sort").on('change',function(){
+          var url = $(this).val();
+        if (url) {
+          window.location = url;
+        }
+        return false
+        })
+      });
+    </script>
+    {{-- Hover danh gia sao --}}
+    <script>
+      function remove_background(product_id)
+      {
+        for (var count =1;count <= 5;count++)
+        {
+          $('#'+product_id+'-'+count).css('color','#ccc');
+        }
+      }
+      $(document).on('mouseenter','.rating',function(){
+        var index = $(this).data("index");
+        var product_id = $(this).data('product_id');
+        remove_background(product_id);
+        for(var count = 1; count <=index;count++ )
+        {
+          $('#'+product_id+'-'+count).css('color','#ffcc00');
+        }
+      });
+      $(document).on('mouseleave','.rating',function(){
+        var index = $(this).data("index");
+        var product_id = $(this).data('product_id');
+        var rating = $(this).data('rating');
+        remove_background(product_id);
+        for(var count = 1; count <=index;count++ )
+        {
+          $('#'+product_id+'-'+count).css('color','#ffcc00');
+        }
+      });
+      $(document).on('click','.rating',function(){
+        var index = $(this).data("index");
+        var product_id = $(this).data('product_id');
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+              
+              url: '{{url('/insert-rating')}}',
+              method: 'POST',
+              data: {index:index,_token:_token,product_id:product_id},
+              success:function(data){
+                if (data == 'done') {
+                  alert("Bạn đã đánh giá "+index+" sao cho món ăn")
+                } else {
+                  alert("Lỗi đánh giá");
+                }
+              }
+            });
+      });
+    </script>
+    <script>
+      $(document).ready(function(){
+        load_feedback();
+
+        function load_feedback() {
+              var product_id = $('.feedback_product_id').val();
+              var _token = $('input[name="_token"]').val();
+              
+          $.ajax({
+              
+              url: '{{url('/load-feedback')}}',
+              method: 'POST',
+              data: {product_id:product_id,_token:_token},
+              success:function(data){
+                $('#feedback_show').html(data);
+              }
+            });
+        }
+        $('.send-feedback').click(function(){
+          var product_id = $('.feedback_product_id').val();
+          var feedback_content = $('.feedback_content').val();
+          var _token = $('input[name="_token"]').val();
+          $.ajax({
+              
+              url: '{{url('/send-feedback')}}',
+              method: 'POST',
+              data: {product_id:product_id,feedback_content:feedback_content,_token:_token},
+              success:function(data){
+                $('#notify_feedback').html('<span class="text text-success">phản hồi đã được gửi đi</span>')
+                load_feedback();
+                $('#notify_feedback').fadeOut(2000);
+                $('.feedback_content').val('');
+              }
+            });
+        })
+      });
+    </script>
+    <script>
         $(document).ready(function () {
             $('.add-to-cart').click(function () {
                 var id = $(this).data('id_product');

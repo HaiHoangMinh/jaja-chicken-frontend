@@ -22,10 +22,25 @@
 <section>
     <div class="container">
         <div class="row">
-            @include('components.sidebar')				
+            @include('components.sidebar')	
+            <h2 class="title text-center">Danh sách thực đơn</h2>
+                    <div class="col-md-4">
+                        <label for="">Sắp xếp theo</label>
+                        <form action="">
+                            @csrf
+                            <select name="sort" id="sort" class="form-control">
+                                <option value="{{Request::url()}}?sort_by=none">--Lọc món ăn--</option>
+                                <option value="{{Request::url()}}?sort_by=tang_dan">--Giá tăng dần--</option>
+                                <option value="{{Request::url()}}?sort_by=giam_dan">--Giá giảm dần--</option>
+                                <option value="{{Request::url()}}?sort_by=kitu_az">--Từ A -> Z--</option>
+                                <option value="{{Request::url()}}?sort_by=kitu_za">--Từ Z -> A--</option>
+                            </select>
+                        </form>
+                    </div>
+            <br/>			
             <div class="col-sm-9 padding-right">
+                
                 <div class="features_items"><!--features_items-->
-                    <h2 class="title text-center">Danh sách thực đơn</h2>
                     
                     @foreach($products as $product)
                     <div class="col-sm-4">

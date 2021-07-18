@@ -7,6 +7,7 @@ use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -31,5 +32,18 @@ class HomeController extends Controller
         $keywords = $request->keyword;
         $productSearch = DB::table('products')->where('name','like','%'.$keywords."%")->get();
         return view('product.search',compact('productSearch'));
+    }
+    public function send_mail()
+    {
+        $to_name = "JAJA Chicken";
+        $to_email = "haibg1998b@gmail.com";//send to this email
+
+        $data = array("name"=>"Mail từ JAJA","body"=> "Cảm ơn bạn đã đặt hàng"); //body of mail.blade.php
+    
+        Mail::send('mail.send_mail',$data,function($message) use ($to_name,$to_email){
+            $message->to($to_email)->subject('test mail nhé');//send this mail with subject
+            $message->from($to_email,$to_name);//send from this mail
+        });
+        return redirect('/');
     }
 }

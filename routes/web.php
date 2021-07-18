@@ -18,6 +18,8 @@ Route::get('/category/{slug}/{id}',[
     'as' => 'category.product',
     'uses' => 'CategoryController@index'
 ]);
+// Liên hệ 
+Route::get('/lien-he', 'ContactController@index');
 //Promotion
 Route::get('/khuyen-mai', 'PromotionController@index');
 Route::get('/khuyen-mai/{id}/{slug}', 'PromotionController@detail');
@@ -27,13 +29,27 @@ Route::get('/product/{id}',[
     'uses' => 'ProductController@index'
 ]);
 Route::get('/thuc-don','ProductController@list_menu');
+Route::post('/load-feedback','ProductController@load_feedback');
+Route::post('/send-feedback','ProductController@send_feedback');
+Route::post('/insert-rating','ProductController@insert_rating');
+
 // Cart
 Route::post('/add-cart-ajax','CartController@add_cart_ajax');
 Route::get('/gio-hang','CartController@gio_hang'); 
-
 Route::post('/update-cart','CartController@update_cart');
 Route::get('/delete-product/{session_id}','CartController@delete_product');
 Route::get('/delete-all','CartController@delete_all_product');
+
+// Send mail
+Route::get('/send-mail','HomeController@send_mail'); 
+//Login facebook
+Route::get('/login-facebook','LoginController@login_facebook');
+Route::get('/customer/facebook/callback','LoginController@callback_facebook');
+
+//Login google
+Route::get('/login-google','LoginController@login_google');
+Route::get('/customer/google/callback','LoginController@callback_google');
+
 
 // Coupon
 Route::post('/check-coupon','CartController@check_coupon');
