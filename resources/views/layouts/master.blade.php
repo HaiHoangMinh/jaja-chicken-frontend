@@ -5,13 +5,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{-- Seo Meta --}}
-    <meta name="description" content="Thả ga ăn gà rán với nhiều combo ưu đãi & giao hàng miễn phí! , Tận hưởng những khoảnh khắc trọn vẹn cùng Jollibee.">
-    <meta name="author" content="">
+    <meta name="description" content="Thả ga ăn gà rán với nhiều combo ưu đãi & giao hàng miễn phí! , Tận hưởng những khoảnh khắc trọn vẹn cùng Jaja.">
+    <meta name="author" content="HoangMinhHai">
     <meta name="keywords" content="JAJA-Chicken, gà rán hàng đầu Nhật Bản"/>
     <meta name="robots" content="all"/>
-    <link rel="canonical" href="http://localhost:8000/">
+    <link rel="canonical" href="http://www.jajachicken.com/">
     <link rel="shortcut icon" href="{{asset('images/logo-removebg-preview.png')}}" type="image/x-icon">
     
+    <meta property="og:url" content="http://www.jajachicken.com/"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="JAJA-Chicken, gà rán hàng đầu Nhật Bản"/>
+    <meta property="og:description" content="Thả ga ăn gà rán với nhiều combo ưu đãi & giao hàng miễn phí! , Tận hưởng những khoảnh khắc trọn vẹn cùng Jaja."/>
+    <meta property="og:image" content="https://scontent.fhan14-2.fna.fbcdn.net/v/t1.6435-9/93575933_102035318155052_898436592010526720_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=e3f864&_nc_ohc=Gzepc_h04G8AX-WXY8F&_nc_ht=scontent.fhan14-2.fna&oh=afff7f62d31aafa08d11e52196110b6d&oe=60FBE19B"/>
+
     @yield('title')
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
@@ -45,6 +51,34 @@
         return false
         })
       });
+    </script>
+    <script>
+      $('.btn-huy-don').click(function () {
+                var id = $(this).data('id_bill');
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: '{{url('/huy-don')}}',
+                    method: 'POST',
+                    data:{id:id, _token:_token},
+                    success:function (data) {
+                      swal({
+                        title: "Bạn có chắc chắn muốn hủy đơn hàng?",
+                        text: "Đơn hàng bị hủy thông thể khôi phục lại được!",
+                        type: "error",
+                        showCancelButton: true,
+                        confirmButtonClass: "btn-danger",
+                        confirmButtonText: "Hủy đơn",
+                        closeOnConfirm: false
+                      },
+                      function(){
+                        swal("", "Đơn hàng của bạn đã bị hủy!", "success");
+                        location.reload();
+                      });
+                      
+                    }
+                });
+
+            });
     </script>
     {{-- Hover danh gia sao --}}
     <script>
@@ -130,8 +164,20 @@
         })
       });
     </script>
+
     <script>
         $(document).ready(function () {
+          show_cart();
+        function show_cart(){
+          $.ajax({
+              url: '{{url('/show-cart')}}',
+              method: 'GET',
+              success:function(data){
+                $('#show-cart').html("("+data+")");
+
+              }
+            });
+        }
             $('.add-to-cart').click(function () {
                 var id = $(this).data('id_product');
                 var cart_product_id = $('.cart_product_id_' + id).val();
@@ -162,7 +208,7 @@
                             function() {
                                 window.location.href = "{{url('/gio-hang')}}";
                             });
-
+                            show_cart();
                     }
                 });
 

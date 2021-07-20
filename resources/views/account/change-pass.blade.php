@@ -5,7 +5,32 @@
 
 @section('css')
     <link rel="stylesheet" href="{{asset('home/home.css')}}">
-    
+    <style>
+        .infor{
+            margin-top: 20px;
+            border: 1px solid silver;
+            border-radius: 10px;
+            box-shadow:  2px 2px 2px 2px silver;
+            height: 200px;
+            align-items: center;
+        }
+        .item {
+            padding-top: 20px;
+        }
+        .item span {
+            font-size: 15px;
+            line-height: 30px;
+        }
+        .btn-change-img {
+            border-radius: 50% !important;
+        }
+        img{
+            border-radius: 50% !important;
+        }
+        a:hover {
+        border-bottom: 1px solid red;
+    }
+    </style>
 @endsection
 
 @section('js')
@@ -18,6 +43,20 @@
     
     <section>
         <div class="container" style="width: 70%">
+            <div class="row infor">
+                <div class="item">
+                    <div class="col-md-4">
+                         <img class="btn-change-img"><img src="{{$customer->feature_image_path}}" alt="" height="150" width="150"
+                            >
+                    </div>
+                    <div class="col-md-8">
+                        <p style="color: red"><strong>Xin chào!</strong></p>
+                        <h3><strong>{{$customer->name}}</strong></h3>
+                        <span>Lần truy cập trước: </span>
+                        <br/><span>Loại tài khoản: </span>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm-3 brands-name " style="margin-top: 28px" >
                     <ul class="nav nav-pills nav-stacked">
@@ -25,7 +64,7 @@
                         <br/>
                         <li><a href="{{URL::to('/lich-su-mua-hang')}}">Lịch sử đơn hàng</a></li>
                         <br/>
-                        <li><a href="{{URL::to('/doi-mat-khau')}}">Đổi mật khẩu</a></li>
+                        <li><a style="color: red" href="{{URL::to('/doi-mat-khau')}}">Đổi mật khẩu</a></li>
                         <br/>
                         <li><a href="{{URL::to('/doi-dia-chi')}}">Địa chỉ giao hàng</a></li>
                         <br/>

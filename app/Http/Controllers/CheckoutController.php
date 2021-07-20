@@ -116,7 +116,7 @@ class CheckoutController extends Controller
     {
         $data = array();
         $cart = Session::get('cart');
-        $total = 0;
+        $total = 23000;
         $city = DB::table('tinhthanhpho')->where('matp',$request->city)->first()->name;
         $province = DB::table('quanhuyen')->where('maqh',$request->province)->first()->name;
         $wards = DB::table('xaphuongthitran')->where('xaid',$request->wards)->first()->name;
@@ -134,13 +134,11 @@ class CheckoutController extends Controller
         $data_payment = array();
        
         $data_payment['payment_method'] = $request->payment_option;
-        $data_payment['status'] = "Hoàn tất thanh toán";
-        
         $payment_id = DB::table('payments')->insertGetId($data_payment);
         //insert bills
         $bills_data = array();
         $bills_data['shipping_id'] = $shipping_id;
-        $bills_data['status'] = "Đã tiếp nhận đơn hàng";
+        $bills_data['status'] = "Đang chuẩn bị";
         $bills_data['date_order'] = Carbon::now('Asia/Ho_Chi_Minh');
         $bills_data['payment_id'] = $payment_id;
         $bills_data['note'] = $request->shipping_note;
@@ -186,19 +184,18 @@ class CheckoutController extends Controller
     public function save_bill(Request $request)
     {
         $data = array();
-        $total = 0;
+        $total = 23000;
         $cart = Session::get('cart');
         $coupons = Session::get('coupon');
         $coupon_used = Session::get('customer_id').",";
         if ($cart !=null) {
             $data['payment_method'] = $request->payment_option;
-            $data['status'] = "Đang chờ thanh toán";
             $payment_id = DB::table('payments')->insertGetId($data);
             //insert bills
             $bills_data = array();
             $bills_data['customer_id'] = Session::get('customer_id');
-            $bills_data['status'] = "Đã tiếp nhận đơn hàng";
-            $bills_data['date_order'] = Carbon::now();
+            $bills_data['date_order'] = Carbon::now('Asia/Ho_Chi_Minh');
+            $bills_data['status'] = 1;
             $bills_data['payment_id'] = $payment_id;
             $bills_data['note'] = $request->shipping_note;
             foreach ($cart as $key => $value) {

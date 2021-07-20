@@ -64,11 +64,11 @@
                         <br/>
                         <li><a href="{{URL::to('/lich-su-mua-hang')}}">Lịch sử đơn hàng</a></li>
                         <br/>
-                        <li><a  href="{{URL::to('/doi-mat-khau')}}">Đổi mật khẩu</a></li>
+                        <li><a href="{{URL::to('/doi-mat-khau')}}">Đổi mật khẩu</a></li>
                         <br/>
-                        <li><a style="color: red" href="{{URL::to('/doi-dia-chi')}}">Địa chỉ giao hàng</a></li>
+                        <li><a href="{{URL::to('/doi-dia-chi')}}">Địa chỉ giao hàng</a></li>
                         <br/>
-                        <li><a href="{{URL::to('/vi-coupon')}}">Mã khuyến mãi</a></li>
+                        <li><a style="color: red" href="{{URL::to('/vi-coupon')}}">Mã khuyến mãi</a></li>
                         <hr/>
                         
                         <li><a href="{{URL::to('/logout-checkout')}}">Đăng xuất</a></li>
@@ -77,33 +77,25 @@
                 <div class="col-sm-9 " >
                     <div class="features_items"><!--features_items-->
                         <br/>
-                        <h2 class="title text-center">Đổi địa chỉ giao hàng</h2>
-                        <div class="col-sm-6" style="margin-left: 25%; " >
-                                <form action="{{URL::to('/update-address')}}" method="POST">
-                                    @csrf                                        
-                                    <label for="">Địa chỉ</label>
-                        <select class="form-control choose city" name="city" id="city" >
-                            <option value="">Chọn tỉnh/thành phố</option>
-                          @foreach($city as $item)
-                          <option value="{{$item->matp}}">{{$item->name}}</option>
-                          @endforeach
-                        </select>
-                        <br/>
-                        <select class="form-control choose province" name="province" id="province" >
-                            <option value="">Chọn quận huyện</option>
-                            
-                          </select>
-                          <br/>
-                          <select class="form-control wards" name="wards" id="wards" >
-                            <option value="">Chọn xã phường</option>
-                          </select>
-                          <br/>
-                          <input type="text" class="form-control home" placeholder="Số nhà/Đường/Nghách"
-                          name = "home">
-                                              
-                            <input type="submit" value="Cập nhật địa chỉ" class="btn btn-primary ">
-                        </form>
-    
+                        <h2 class="title text-center">Mã khuyến mãi hiện có</h2>
+                        @foreach ($coupons as $coupon)
+                            <div class="col-md-12" style="border: 1px solid silver; line-height: 23px; 
+                            margin-top: -20px; margin-bottom: 50px; border-radius: 15px; ">
+                                <div class="col-md-2">
+                                    <img src="{{asset('images/discount-ticket.png')}}" alt="" height="100px" width="90">
+                                </div>
+                                <div class="col-md-7">
+                                    <span>Mã giảm giá: {{$coupon->coupon_name}}</span>
+                                    <br/><span>Mã code: {{$coupon->coupon_code}}</span>
+                                    @if($coupon->coupon_condition == 1)
+                                    <br/><span>Giá trị giảm: {{$coupon->coupon_number}}%</span>
+                                    @else 
+                                    <br/><span>Giá trị giảm: {{number_format($coupon->coupon_number,0,',','.')}}đ</span>
+                                    @endif
+                                    <br/><em><span>Ngày bắt đầu: {{$coupon->date_start}}</span><span> - Ngày kết thúc: {{$coupon->date_end}}</span> </em>
+                                </div>
+                            </div>
+                        @endforeach
                         </div>
                     
                 </div>

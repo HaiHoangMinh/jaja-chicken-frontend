@@ -81,68 +81,89 @@
         <div class="col-sm-12 " >
             <div class="features_items"><!--features_items-->
                 <br/>
-                <h2 class="title text-center">Đơn hàng đã đặt</h2>
-               
+                <h2 class="title text-center">CHI TIẾT ĐƠN HÀNG</h2>
+                
                 <div class="table-responsive cart_info">
-
+                    <br/>
+                    <h2 class="title text-center">THÔNG TIN GIAO HÀNG</h2>
                     <table class="table table-condensed">
                         <thead>
                             <tr class="cart_menu">
         
-                                <td class="description">Ngày đặt</td>
-                                <td class="description">Địa chỉ giao hàng</td>
-                                <td class="price">Số tiền trả</td>
-                                <td class="quantity">Trạng thái</td>
-                                <td></td>
-                                <td></td>
+                                <td >Khách hàng</td>
+                                <td >Địa chỉ giao hàng</td>
+                                <td >Số điện thoại</td>
+                                <td >Email</td>
+                                <td>Ghi chú</td>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($bills as $bill)
-                            <tr>
-                                
-                               <td>
-                                   <p>{{$bill->date_order}}</p>
-                               </td>
-                               <td>
-                                <p>{{$customer->address}}</p>
-                               </td>
-                               <td>
-                                <p>{{number_format($bill->total)}}</p>
-                               </td>
-                               <td>
-                                   @if ($bill->status == 0)
-                                    <p>Đã hủy</p>
-                                   @elseif($bill->status == 1)
-                                   <p>Đang chuẩn bị</p>
-                                   @elseif($bill->status == 2)
-                                   <p>Đang giao</p>
-                                   @else
-                                   <p>Đã giao</p>
-                                   @endif
-                               </td>
-                               <td>
-                                 <a href="{{URL::to('/lich-su-chi-tiet/'.$bill->id)}}">Chi tiết</a>
-                               </td>
-                               @if ($bill->status == 1)
-                                  <td>
-                                    <button class="btn btn-danger btn-huy-don" data-id_bill="{{$bill->id}}" 
-                                        name="btn-huy-don">Hủy </button>
-                                  </td>
-                               @endif
-                               
-                                
-                            </tr>
-                            @endforeach
+                            <td>
+                                <p>{{$customer->name}}</p>
+                            </td>
+                            <td>
+                             <p>{{$customer->address}}</p>
+                            </td>
+                            <td>
+                             <p>{{$customer->phone_number}}</p>
+                            </td>
+                            <td>
+                                <p>{{$customer->email}}</p>
+                            </td>
+                            <td>
+                                <p>{{$bill->note}}</p>
+                            </td>
                         </tbody>
                         
                     </table>
-                    {{$bills->links()}}
                 </div>
                 </div>
             
         </div>
-
+        
+        <div class="col-sm-12 " >
+            <div class="features_items"><!--features_items--> 
+                <div class="table-responsive cart_info">
+                    <br/>
+                    <h2 class="title text-center">Liệt kê chi tiết đơn hàng</h2>
+                    
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr class="cart_menu">
+        
+                                <td class="description">Tên món ăn</td>
+                                <td class="description">Giá món ăn</td>
+                                <td class="price">Số lượng</td>
+                                <td class="quantity">Tổng tiền món ăn</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($bill_detail as $item)
+                           <td>
+                            <p>{{$products->where('id',$item->product_id)->first()->name}}</p>
+                        </td>
+                        <td>
+                         <p>{{number_format($products->where('id',$item->product_id)->first()->price)}}</p>
+                        </td>
+                        <td>
+                            <p>{{$item->quantity}}</p>
+                           </td>
+                        <td>
+                         <p>{{number_format($products->where('id',$item->product_id)->first()->price*$item->quantity)}}</p>
+                        </td>
+                           
+                    </tbody>
+                    @endforeach 
+                    </table>
+                    <hr/><span>Tổng hóa đơn: {{number_format($bill->total)}}</span>
+                    <br/><span>Phí dịch vụ: 3,000đ</span>
+                    <br/><span>Phí ship: 20,000đ</span>
+                    <br/><span>Thời gian giao hàng: {{$delivery_time}} </span>
+                </div>
+                </div>
+            
+        </div>
             </div>
         </div>
         

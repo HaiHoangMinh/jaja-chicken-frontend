@@ -39,9 +39,15 @@ Route::get('/gio-hang','CartController@gio_hang');
 Route::post('/update-cart','CartController@update_cart');
 Route::get('/delete-product/{session_id}','CartController@delete_product');
 Route::get('/delete-all','CartController@delete_all_product');
+Route::get('/show-cart','CartController@show_cart');
 
 // Send mail
-Route::get('/send-mail','HomeController@send_mail'); 
+Route::get('/send-mail','MailController@send_mail'); 
+Route::get('/quen-mat-khau','MailController@quen_mat_khau'); 
+Route::post('/reset-pass','MailController@reset_pass'); 
+Route::get('/update-new-pass','MailController@update_new_pass'); 
+Route::post('/reset-new-pass','MailController@reset_new_pass'); 
+
 //Login facebook
 Route::get('/login-facebook','LoginController@login_facebook');
 Route::get('/customer/facebook/callback','LoginController@callback_facebook');
@@ -72,10 +78,12 @@ Route::get('/khach-hang','AccountController@index');
 Route::get('/lich-su-mua-hang','AccountController@history');
 Route::get('/doi-mat-khau','AccountController@change_pass');
 Route::get('/doi-dia-chi','AccountController@change_address');
+Route::get('/vi-coupon','AccountController@show_coupoun');
 Route::post('/update-address','AccountController@update_address');
 Route::post('/update-pass','AccountController@update_password');
 Route::post('/update-account','AccountController@update_account');
-
+Route::get('/lich-su-chi-tiet/{id}','AccountController@history_detail');
+Route::post('/huy-don','AccountController@cancel_bill');
 
 //Payment
 Route::get('/payment','CheckoutController@payment');

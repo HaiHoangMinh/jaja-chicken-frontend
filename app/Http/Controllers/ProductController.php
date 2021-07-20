@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
 {
-    public function index($product_id)
+    public function index($product_id,Request $request)
     {
         $categoryLimit = Category::where('parent_id',0)->get();
         $product = Product::find($product_id);
@@ -26,9 +26,9 @@ class ProductController extends Controller
         $productRecommend = Product::latest('view_count','desc')->take(12)->get();
         $rating = DB::table('rating')->where('product_id',$product_id)->avg('rating');
         $rating = round($rating);
-        
+        $url_con = $request->url();
         return view('product.detail',compact('categoryLimit','product','categories','productRecommend',
-        'productSameTags','productImages','rating'));
+        'productSameTags','productImages','rating','url_con'));
     }
     public function list_menu()
     {
@@ -72,13 +72,14 @@ class ProductController extends Controller
         foreach ($feedback as $key => $value) {
             if ($value->status == 1) {
                 $name = DB::table('customers')->where('id',$value->customer_id)->first()->name;
+                $image = DB::table('customers')->where('id',$value->customer_id)->first()->feature_image_path;
             $output .= '
             <div class="row style_feedback">
-                    <img src="" alt="">
-                  <div class="col-md-2">
-                
+                    
+                  <div class="col-md-3">
+                  <img src="'.$image.'" alt="" class="cus_img">
             </div>
-            <div class="col-md-10">
+            <div class="col-md-9">
                 <p style="color:green;">@ '.$name.'</p>
                 <p style="color:darkred;"> '.$value->date.'</p>
                 <p>' .$value->content.'</p>

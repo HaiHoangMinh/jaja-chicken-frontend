@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Traits\StorageImageTrait;
+use Carbon\Carbon;
+
 session_start();
 
 class AccountController extends Controller
 {
     // Hien thi thong tin khach hang
+    use StorageImageTrait;
     public function index(){
         $customer_id = Session::get('customer_id');
         if($customer_id)
@@ -26,7 +30,8 @@ class AccountController extends Controller
      public function history()
      {
          $data['customer_id'] = Session::get('customer_id');
-         $bills = DB::table('bills')->where('customer_id', $data['customer_id'])->paginate(6);
+         $bills = DB::table('bills')->where('customer_id', $data['customer_id'])
+         ->orderBy('id','DESC')->paginate(6);
          if($data['customer_id'])
         {
             $customer = DB::table('customers')->where('id', $data['customer_id'])->first();
@@ -39,14 +44,23 @@ class AccountController extends Controller
      public function update_account(Request $request)
      {
         $customer_id = Session::get('customer_id');
+        
         if($customer_id)
         {
+            $dataUploadFeatureImage = $this->storageTraitUpload($request,'feature_image_path','customer');
+            if (!empty($dataUploadFeatureImage)) {
+                //$user['feature_image_name'] = $dataUploadFeatureImage['file_name'];
+                
+                $feature_image_path = $dataUploadFeatureImage['file_path'];
+               
+            }
             DB::table('customers')
             ->where('id',$customer_id)
             ->update([
             'name' => $request->name,
             'email' => $request->email,
-            'phone_number' => $request->phone_number
+            'phone_number' => $request->phone_number,
+            'feature_image_path' => $feature_image_path
         ]);
              return redirect()->back()->with('message','Cập nhật thành công!');
         } else {
@@ -107,14 +121,56 @@ class AccountController extends Controller
         $customer_id = Session::get('customer_id');
         if($customer_id)
         {
+            $customer = DB::table('customers')->where('id',$customer_id)->first();
             $data1= DB::table('tinhthanhpho')->where('matp',1)->first();
             $data2 = DB::table('tinhthanhpho')->where('matp',24)->first();
             $city =array();
             $city[0] = $data1;
             $city[1] = $data2;
-            return view('account.change-address',compact('city'));
+            return view('account.change-address',compact('city','customer'));
         } else {
             return redirect('login-checkout');
         }
+     }
+     public function show_coupoun()
+     {
+        $customer_id = Session::get('customer_id');
+        
+        if($customer_id)
+        {
+            $customer = DB::table('customers')->where('id',$customer_id)->first();
+            $coupons = DB::table('coupons')->where('coupon_status',1)->get();
+            return view('account.customer-coupon',compact('coupons','customer'));
+        } else {
+            return redirect('login-checkout');
+        }
+        
+     }
+     public function history_detail($id)
+     {
+        $data['customer_id'] = Session::get('customer_id');
+        $bill = DB::table('bills')->where('id', $id)->first();
+        $bill_detail =  DB::table('bill_details')->where('bill_id', $id)->get();
+        $products = DB::table('products')->get();
+        if ($bill->status != 0) {
+            $delivery_time = Carbon::parse($bill->date_order);
+            $delivery_time->addMinutes(45); 
+        } else{
+            $delivery_time = "Đã bị hủy";
+        }
+        if($data['customer_id'])
+       {
+           $customer = DB::table('customers')->where('id', $data['customer_id'])->first();
+           return view('account.history-bill',compact('bill','customer','bill_detail','products','delivery_time'));
+       } else {
+           return redirect('login-checkout');
+       }
+     }
+     public function cancel_bill(Request $request){
+            DB::table('bills')
+            ->where('id', $request->id)
+            ->update([
+                'status' => 0,
+            ]);
      }
 }

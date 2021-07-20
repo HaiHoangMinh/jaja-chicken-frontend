@@ -14,6 +14,16 @@ session_start();
 
 class CartController extends Controller
 {
+    public function show_cart()
+    {
+        $cart = Session::get('cart');
+			if ($cart == null) {
+					$count_cart = 0;
+		    } else {
+				$count_cart = count(Session::get('cart'));
+			}
+        echo $count_cart;
+    }
     public function gio_hang(Request $request)
     {
         $meta_desc = 'Giỏ hàng của bạn';

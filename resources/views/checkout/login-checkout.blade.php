@@ -55,6 +55,9 @@
                             <input type="checkbox" class="checkbox" value=""> 
                             <p style="margin-top: 14px;">Lưu thông tin đăng nhập</p>
                         </span>
+                        <span>
+                            <p style="margin-top: 14px;"> <a href="{{URL::to('/quen-mat-khau')}}">Quên mật khẩu ?</a></p>
+                        </span>
                         <center>
                             <button type="submit" class="btn btn-default">Đăng nhập</button>
                         </center>

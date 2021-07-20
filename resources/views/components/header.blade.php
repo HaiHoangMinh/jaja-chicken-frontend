@@ -28,7 +28,9 @@
 				<div class="row">
 					<div class="col-md-4 clearfix">
 						<div class="logo pull-left">
-							<a href="{{route('home')}}"><img src="/images/logo-removebg-preview.png" alt="" height=120px width=150px/></a>
+							<a href="{{route('home')}}">
+								<img src="/images/logo-removebg-preview.png" alt="" height=120px width=150px/>
+							</a>
 						</div>
 		
 					</div>
@@ -55,10 +57,12 @@
 								<li><a href="{{URL::to('/checkout')}}"><i class="fa fa-credit-card"></i> Thanh toán</a></li>
 								<?php 
 									}
-							
 								?>
-
-								<li><a href="{{URL::to('/gio-hang')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+								
+								<li><a href="{{URL::to('/gio-hang')}}"><i class="fa fa-shopping-cart"></i>
+									 Giỏ hàng
+									 <span id="show-cart"></span>
+									</a></li>
 								<?php 
 									$customer_id = Session::get('customer_id');
 									if ($customer_id!=null) {

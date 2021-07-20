@@ -7,7 +7,13 @@
 @section('css')
     <link rel="stylesheet" href="{{asset('home/home.css')}}">
 @endsection
-
+<style>
+    .cus_img
+    {
+        height: 130px;
+        width: 150px;
+    }
+</style>
 @section('js')
     <link rel="stylesheet" href="{{asset('home/home.js')}}">
 @endsection
@@ -16,6 +22,7 @@
 <section>
     <div class="container">
         <div class="row">
+            <br/>
             @include('components.sidebar')
             
             <div class="col-sm-9 padding-right">
@@ -63,17 +70,29 @@
                                 </form>
                             </span>
                             </form>
-                            
-                            
-                                
-                                     
-                                <p><b>Tình trạng:</b> Còn món</p>
+                                <div class="div">
+                                     <p><b>Tình trạng:</b> Còn món</p>
 								<p><b>Giao hàng:</b> Có</p>
-								<p><b>Thương hiệu:</b>JaJa-Chicken</p>
-                                 
-                        <br/>
+								<p><b>Cửa hàng:</b>JaJa-Chicken</p>
+                                <script async defer crossorigin="anonymous" 
+                                src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0" nonce="KsfqTDTY"></script>
+                                <div class="fb-share-button" 
+                                data-href="{{$url_con}}" 
+                                data-layout="box_count" data-size="small"><a target="_blank" 
+                                href="https://www.facebook.com/sharer/sharer.php?u={{$url_con}}" class="fb-xfbml-parse-ignore">
+                                Chia sẻ website</a></div>
+                                </div>
+                               
+                                
+                                <div id="fb-root"></div>
+                                
+                                <script>src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0" 
+                                nonce="Yezi5QLW"></script>
+                                <div class="fb-like" data-href="https://www.facebook.com/JaJaChickenVietnam" data-width="" data-layout="standard" 
+                                data-action="like" data-size="large" data-share="true"></div>
+                                <br/>
                          
-                            <a href=""><img src="/eshopper/images/product-details/share.png" class="share img-responsive"  alt="" /></a>
+                           
                         </div><!--/product-information-->
                     </div>
                 </div><!--/product-details-->

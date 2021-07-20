@@ -29,21 +29,14 @@ class HomeController extends Controller
     }
     public function search(Request $request)
     {
+        $meta_desc =  "Thả ga ăn gà rán với nhiều combo ưu đãi & giao hàng miễn phí! , 
+        Tận hưởng những khoảnh khắc trọn vẹn cùng Jaja.";
+        $meta_keywords = "ga ran,Gà rán,Đồ ăn với gà";
+        $meta_title = "Jaja Chicken Việt Nam";
+        $url_con = $request->url();
         $keywords = $request->keyword;
         $productSearch = DB::table('products')->where('name','like','%'.$keywords."%")->get();
-        return view('product.search',compact('productSearch'));
+        return view('product.search',compact('productSearch', 'meta_keywords','meta_title','url_con','meta_desc',));
     }
-    public function send_mail()
-    {
-        $to_name = "JAJA Chicken";
-        $to_email = "haibg1998b@gmail.com";//send to this email
-
-        $data = array("name"=>"Mail từ JAJA","body"=> "Cảm ơn bạn đã đặt hàng"); //body of mail.blade.php
-    
-        Mail::send('mail.send_mail',$data,function($message) use ($to_name,$to_email){
-            $message->to($to_email)->subject('test mail nhé');//send this mail with subject
-            $message->from($to_email,$to_name);//send from this mail
-        });
-        return redirect('/');
-    }
+   
 }
