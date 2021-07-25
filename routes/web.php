@@ -88,3 +88,5 @@ Route::post('/huy-don','AccountController@cancel_bill');
 //Payment
 Route::get('/payment','CheckoutController@payment');
 Route::post('/save-bill','CheckoutController@save_bill');
+Route::get('/payment-atm','CheckoutController@create');
+Route::get('/return-vnpay','CheckoutController@return');

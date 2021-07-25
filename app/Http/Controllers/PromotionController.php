@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Slider;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -26,6 +27,8 @@ class PromotionController extends Controller
     {
         $promotion = DB::table('promotions')->where('id',$id)->first();
         $promotions = DB::table('promotions')->where('id','!=',$id)->take(3)->get();
-        return view('promotion.detail-promotion',compact('promotion','promotions'));
+        $time = Carbon::parse($promotion->created_at)->format('H:i:s');
+        $date = Carbon::parse($promotion->created_at)->format('d-m-Y');
+        return view('promotion.detail-promotion',compact('promotion','promotions','time','date'));
     }
 }

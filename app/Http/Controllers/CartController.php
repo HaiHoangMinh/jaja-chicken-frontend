@@ -41,13 +41,13 @@ class CartController extends Controller
         $session_id = substr(md5(microtime()),rand(0,26),5);
         $cart = Session::get('cart');
         if($cart==true){
-            $is_avaiable = 0;
+            $is_available = 0;
             foreach($cart as $key => $val){
                 if($val['product_id']==$data['cart_product_id']){
-                    $is_avaiable++;
+                    $is_available++;
                 }
             }
-            if($is_avaiable == 0){
+            if($is_available == 0){
                 $cart[] = array(
                 'session_id' => $session_id,
                 'product_name' => $data['cart_product_name'],

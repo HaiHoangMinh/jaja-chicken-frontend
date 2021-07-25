@@ -18,7 +18,7 @@
 	@include('home.components.slider')
 	
 	<section>
-		<div class="container">
+		<div class="container" style="border: 1px solid silver; box-shadow: 2px 2px 2px 2px silver">
 			<div class="row" style="width: 80%; margin-left: 10%">
                 <div style="text-align: center; height: 100px;">
                     <h1>TIN KHUYẾN MÃI</h1>

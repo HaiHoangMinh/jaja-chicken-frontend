@@ -19,13 +19,14 @@
 				<div class="col-sm-12 padding-right">
 					<div class="features_items" style="align-items: center">
                         <br/>
-						<h2 class="title text-center">Cảm ơn bạn đã đặt hàng tại JAJA</h2>
+						<h2 class="title text-center">Xin lỗi ! Đơn hàng của bạn chưa được thanh toán. </h2>
+						<center><p>Vui lòng kiểm tra lại thẻ ATM hoặc chọn phương thức thanh toán khác</p></center>
                         <br/>
                         
                         <br/>
 						<center>
-							<form action="{{URL::to('/')}}">
-                            	<input type="submit" value="Quay lại trang chủ" class="btn btn-default" />
+							<form action="{{URL::to('/payment')}}">
+                            	<input type="submit" value="Tiến hành thanh toán lại" class="btn btn-default" />
                         	</form>
 						</center>
                         

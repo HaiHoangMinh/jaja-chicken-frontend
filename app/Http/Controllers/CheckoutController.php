@@ -191,6 +191,7 @@ class CheckoutController extends Controller
         if ($cart !=null) {
             $data['payment_method'] = $request->payment_option;
             $payment_id = DB::table('payments')->insertGetId($data);
+            
             //insert bills
             $bills_data = array();
             $bills_data['customer_id'] = Session::get('customer_id');
@@ -244,13 +245,82 @@ class CheckoutController extends Controller
             if ($data['payment_method'] == 1 ) {
                 return view('checkout.cash');
             } else {
-                return view('checkout.atm');
+                Session::put('payment_id',$payment_id);
+                $vnp_TmnCode = "OW78ECMO"; //Mã website tại VNPAY 
+                $vnp_HashSecret = "GSAUHQVPKWRFWBELVNVIZQPIWOGTQYXK"; //Chuỗi bí mật
+                $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+                $vnp_Returnurl = "http://www.jajachicken.com/return-vnpay";
+                $vnp_TxnRef = date("YmdHis"); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+                $vnp_OrderInfo = "Thanh toan don hang Jaja. So tien:".$total." VND";
+                $vnp_OrderType = 'billpayment';
+                $vnp_Amount = $total * 100;
+                $vnp_Locale = 'vn';
+                $vnp_IpAddr = request()->ip();
+        
+                $inputData = array(
+                    "vnp_Version" => "2.0.0",
+                    "vnp_TmnCode" => $vnp_TmnCode,
+                    "vnp_Amount" => $vnp_Amount,
+                    "vnp_Command" => "pay",
+                    "vnp_CreateDate" => date('YmdHis'),
+                    "vnp_CurrCode" => "VND",
+                    "vnp_IpAddr" => $vnp_IpAddr,
+                    "vnp_Locale" => $vnp_Locale,
+                    "vnp_OrderInfo" => $vnp_OrderInfo,
+                    "vnp_OrderType" => $vnp_OrderType,
+                    "vnp_ReturnUrl" => $vnp_Returnurl,
+                    "vnp_TxnRef" => $vnp_TxnRef,
+                );
+        
+                if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+                    $inputData['vnp_BankCode'] = $vnp_BankCode;
+                }
+                ksort($inputData);
+                $query = "";
+                $i = 0;
+                $hashdata = "";
+                foreach ($inputData as $key => $value) {
+                    if ($i == 1) {
+                        $hashdata .= '&' . $key . "=" . $value;
+                    } else {
+                        $hashdata .= $key . "=" . $value;
+                        $i = 1;
+                    }
+                    $query .= urlencode($key) . "=" . urlencode($value) . '&';
+                }
+        
+                $vnp_Url = $vnp_Url . "?" . $query;
+                if (isset($vnp_HashSecret)) {
+                   // $vnpSecureHash = md5($vnp_HashSecret . $hashdata);
+                    $vnpSecureHash = hash('sha256', $vnp_HashSecret . $hashdata);
+                    $vnp_Url .= 'vnp_SecureHashType=SHA256&vnp_SecureHash=' . $vnpSecureHash;
+                }
+                return redirect($vnp_Url);
             }
         } else {
             return redirect()->back()->with('message','Bạn không có gì để thanh toán !');
         }
         
     }
-   
+   // Thanh toan VNpay
+    public function return(Request $request)
+{
     
+    if($request->vnp_ResponseCode == "00") {
+        $id = Session::get('payment_id');
+        DB::table('payments')
+        ->where('id', $id)
+        ->update([
+            'money' => $request->vnp_Amount/100,
+            'note' => $request->vnp_OrderInfo,
+            'code_vnpay' => $request->vnp_BankTranNo,
+            'vnp_paydate' =>$request->vnp_PayDate,
+            'code_bank' =>$request->vnp_BankCode
+        ]);
+        $money = $request->vnp_Amount/100;
+        return view('checkout.vnpay.vnpay_return',compact('money'))->with('success' ,'Đã thanh toán phí dịch vụ');
+    }
+    session()->forget('url_prev');
+    return view('checkout.vnpay.atm')->with('errors' ,'Lỗi trong quá trình thanh toán phí dịch vụ');
+}
 }

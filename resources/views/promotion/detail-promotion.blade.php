@@ -14,7 +14,7 @@
 
 @section('content')
     <section>
-		<div class="container" style="width: 75%;">
+		<div class="container" style="width: 75%;border: 1px solid silver; box-shadow: 2px 2px 2px 2px silver">
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="blog-post-area">
@@ -24,8 +24,8 @@
 							<div class="post-meta">
 								<ul>
 									<li><i class="fa fa-star"></i> Khuyến mãi</li>
-									<li><i class="fa fa-clock-o"></i> 1:33 pm</li>
-									<li><i class="fa fa-calendar"></i> DEC 5, 2013</li>
+									<li><i class="fa fa-clock-o"></i> {{$time}}</li>
+									<li><i class="fa fa-calendar"></i>{{$date}}</li>
 								</ul>
 								<span>
 									<i class="fa fa-star"></i>

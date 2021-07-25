@@ -4,15 +4,17 @@
 @endsection
 
 @section('content')
-<section id="form"><!--form-->
-    <div class="container" style="text-align: center; font-size: 40px; border: 1px dashed darkred; border-radius:15px;height: 250px;">
+<section style="line-height: 90px; height: 450px; margin-top: 35px; background-color: wheat  }}) "><!--form-->
+    <div class="container" style="text-align: center; 
+    font-size: 40px; border: 1px solid silver; border-radius:15px; box-shadow: 5px 5px 5px 5px silver;
+    height: 400px; width: 75%">
         <span>VUI LÒNG CHỌN HÌNH THỨC MUA HÀNG</span>
         <div class="form">
-            <a href="{{URL::to('/login-checkout')}}" class="btn btn-primary " style="border-radius: 10px">Đăng nhập bằng tài khoản JAJA</a>
+            <a href="{{URL::to('/login-checkout')}}" class="btn btn-primary " style="border-radius: 10px; font-size: 30px">ĐĂNG NHẬP BẰNG TÀI KHOẢN JAJA</a>
             <br/>   
             <span>Hoặc</span>
             <br/>   
-            <a href="{{URL::to('/show-checkout')}}" class="btn btn-primary " style="border-radius: 10px">Mua hàng không cần tài khoản</a>
+            <a href="{{URL::to('/show-checkout')}}" class="btn btn-primary " style="border-radius: 10px;font-size: 30px;">MUA HÀNG KHÔNG DÙNG TÀI KHOẢN</a>
         </div>
     </div>
 </section><!--/form-->

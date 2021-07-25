@@ -23,6 +23,7 @@
             
             <div class="col-sm-9 padding-right">
                 <div class="features_items"><!--features_items-->
+                    <br>
                     <h2 class="title text-center">Danh sách món ăn</h2>
                     @foreach($products as $product)
                     <div class="col-sm-4">

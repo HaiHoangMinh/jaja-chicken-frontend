@@ -17,6 +17,12 @@ class ProductController extends Controller
 {
     public function index($product_id,Request $request)
     {
+        $count = Product::where('id',$product_id)->first()->view_count + 1;
+        DB::table('products')
+        ->where('id',$product_id)
+        ->update([
+        'view_count' => $count
+        ]);
         $categoryLimit = Category::where('parent_id',0)->get();
         $product = Product::find($product_id);
         $productImages = ProductImage::where('product_id',$product_id)->get();
@@ -32,6 +38,7 @@ class ProductController extends Controller
     }
     public function list_menu()
     {
+        
         $categoryLimit = Category::where('parent_id',0)->get();
         
         $categories = Category::where('parent_id',0)->get();
