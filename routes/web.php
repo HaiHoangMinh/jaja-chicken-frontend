@@ -67,7 +67,7 @@ Route::get('/login-checkout','CheckoutController@login_checkout');
 Route::get('/logout-checkout','CheckoutController@logout_checkout');
 Route::post('/add-customer','CheckoutController@add_customer');
 Route::post('/select-address','CheckoutController@select_address');
-Route::post('/login','CheckoutController@login');
+Route::post('/login','LoginController@login');
 Route::get('/checkout','CheckoutController@checkout');
 Route::get('/show-checkout','CheckoutController@show_checkout');
 Route::post('/save-checkout','CheckoutController@save_checkout');

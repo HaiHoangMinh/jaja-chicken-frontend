@@ -67,7 +67,7 @@
                         <td class="cart_quantity">
                             <div class="cart_quantity_button">
                                 
-                                    <input class="cart_quantity_input" type="number" name="cart_qty[{{$cart['session_id']}}]" value="{{$cart['product_qty']}}" min="1" size="1">
+                                    <input class="cart_quantity_input" type="number" name="cart_qty[{{$cart['session_id']}}]" value="{{$cart['product_qty']}}" min="1" size="1" disabled>
                                    
                                 
                             </div>
@@ -75,9 +75,7 @@
                         <td class="cart_total">
                             <p class="cart_total_price">{{number_format($subtotal,0,',','.')}}đ</p>
                         </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href="{{url('/delete-product/'.$cart['session_id'])}}"><i class="fa fa-times"></i></a>
-                        </td>
+                       
                     </tr>
                     
                     @endforeach
@@ -131,27 +129,27 @@
                         <div class="form-one">
                             <form action="{{URL::to('/save-checkout')}}" method="POST">
                                 @csrf
-                                <input type="emai" placeholder="Email người nhận *"  name="shipping_email">
-                                <input type="text" placeholder="Họ và tên người nhận *"  name="shipping_name">
-                                <input type="text" placeholder="SĐT người nhận*"  name="shipping_phone">
+                                <input type="emai" placeholder="Email người nhận *"  name="shipping_email" required>
+                                <input type="text" placeholder="Họ và tên người nhận *"  name="shipping_name" required>
+                                <input type="text" placeholder="SĐT người nhận*"  name="shipping_phone" required>
                                 <label for="">Chọn địa chỉ</label>
-                                <select class="form-control choose city" name="city" id="city" >
+                                <select class="form-control choose city" name="city" id="city" required>
                                     <option value="">Chọn tỉnh/thành phố</option>
                                   @foreach($city as $item)
                                   <option value="{{$item->matp}}">{{$item->name}}</option>
                                   @endforeach
                                 </select>
                                 <br/>
-                                <select class="form-control choose province" name="province" id="province" >
+                                <select class="form-control choose province" name="province" id="province" required >
                                     <option value="">Chọn quận huyện</option>
                                     
                                   </select>
                                   <br/>
-                                  <select class="form-control wards" name="wards" id="wards" >
+                                  <select class="form-control wards" name="wards" id="wards" required >
                                     <option value="">Chọn xã phường</option>
                                   </select>
                                   <br/>
-                                  <input type="text" class="form-control home" placeholder="Số nhà/Đường/Nghách"
+                                  <input type="text" class="form-control home" placeholder="Số nhà/Đường/Nghách" required
                                   name = "home">
                                 <h4>Ghi chú cho đơn hàng</h4>
                                 <textarea name="shipping_note"  placeholder="VD: Ít cay,thêm tương ớt,..." rows="10"></textarea>

@@ -90,6 +90,8 @@ class ProductController extends Controller
                 <p style="color:green;">@ '.$name.'</p>
                 <p style="color:darkred;"> '.$value->date.'</p>
                 <p>' .$value->content.'</p>
+                <p style="color:red;">Trả lời từ JAJA:</p>
+                <p>' .$value->reply.'</p>
                 </div>
             </div>
             <br/>

@@ -71,7 +71,7 @@
                         <td class="cart_quantity">
                             <div class="cart_quantity_button">
                                 
-                                    <input class="cart_quantity_input" type="number" name="cart_qty[{{$cart['session_id']}}]" value="{{$cart['product_qty']}}" min="1" size="1">
+                                    <input class="cart_quantity_input" type="number" name="cart_qty[{{$cart['session_id']}}]" value="{{$cart['product_qty']}}" min="1" size="1" disabled>
                                    
                                 
                             </div>
@@ -79,9 +79,7 @@
                         <td class="cart_total">
                             <p class="cart_total_price">{{number_format($subtotal,0,',','.')}}đ</p>
                         </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href="{{url('/delete-product/'.$cart['session_id'])}}"><i class="fa fa-times"></i></a>
-                        </td>
+                        
                     </tr>
                     
                     @endforeach

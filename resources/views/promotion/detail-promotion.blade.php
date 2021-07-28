@@ -37,12 +37,23 @@
 							</div>
 							<div style="font-size: 20px; line-height: 35px">
 								{!!$promotion->content!!}
-							<a href="">
 								<img src="{{config('app.base_url').$promotion->feature_image_path}}" alt="" height="600px">
-							</a>
 							</div>
 							
 							
+						</div>
+						<div class="col-md-12" style="margin-top: 20px; margin-bottom: 20px">
+							<script async defer crossorigin="anonymous" 
+                                src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0" nonce="KsfqTDTY"></script>
+                               
+                                
+                                <div id="fb-root"></div>
+                                
+                                <script>src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0" 
+                                nonce="Yezi5QLW"></script>
+                                <div class="fb-like" data-href="https://www.facebook.com/JaJaChickenVietnam" data-width="" data-layout="standard" 
+                                data-action="like" data-size="large" data-share="true"></div>
+                                <br/>
 						</div>
 					</div><!--/blog-post-area-->
 

@@ -11,6 +11,21 @@ use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
+    public function login(Request $request)
+    {
+        $email = $request->email_account;
+        $password = md5($request->password_account);
+        $result = DB::table('customers')->where('email',$email)->where('password',$password)->first();
+        
+        if ($result) {
+            Session::put('customer_id',$result->id);
+            Session::put('customer_name',$result->name);
+            return Redirect('/');
+        } else {
+            return Redirect('/login-checkout')->with('error','Sai email hoặc mật khẩu!!');
+        }
+       
+    }
     public function login_facebook(){
         return Socialite::driver('facebook')->redirect();
     }

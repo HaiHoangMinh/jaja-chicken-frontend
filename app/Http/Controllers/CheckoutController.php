@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\Http\Requests\RegisterRequest;
 use App\Product;
 use App\Slider;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Redirect;  
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
+
 session_start();
 
 class CheckoutController extends Controller
@@ -51,14 +54,15 @@ class CheckoutController extends Controller
                 echo $output;
             }
     }
-    public function add_customer(Request $request)
+    
+    public function add_customer(RegisterRequest $request)
     {
         $data = array();
         $city = DB::table('tinhthanhpho')->where('matp',$request->city)->first()->name;
         $province = DB::table('quanhuyen')->where('maqh',$request->province)->first()->name;
         $wards = DB::table('xaphuongthitran')->where('xaid',$request->wards)->first()->name;
         $data['name'] = $request->customer_name;
-        $data['email'] = $request->customer_email;
+        $data['email'] = $request->email;
         $data['phone_number'] = $request->customer_phone;
         $data['address'] = $request->home . " - " . 
         $wards . " - " . 
@@ -71,21 +75,7 @@ class CheckoutController extends Controller
         Session::put('name',$request->customer_name);
         return Redirect('/');
     }
-    public function login(Request $request)
-    {
-        $email = $request->email_account;
-        $password = md5($request->password_account);
-        $result = DB::table('customers')->where('email',$email)->where('password',$password)->first();
-        
-        if ($result) {
-            Session::put('customer_id',$result->id);
-            Session::put('customer_name',$result->name);
-            return Redirect('/');
-        } else {
-            return Redirect('/login-checkout');
-        }
-       
-    }
+   
     public function checkout()
     {
         $sliders = Slider::latest()->get();

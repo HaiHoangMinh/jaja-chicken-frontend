@@ -12,7 +12,7 @@
 					<div class="col-sm-7">
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
-								<a href="#">
+								<a href="https://www.facebook.com/watch?ref=search&v=238639420798034&external_log_id=a251d10d-5ee8-4846-b2ec-4a9d1951971c&q=jaja%20chicken" target="_blank">
 									<div class="iframe-img">
 										<img src="{{asset('images/video1.jpg')}}" alt="" />
 									</div>
@@ -27,7 +27,7 @@
 						
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
-								<a href="#">
+								<a href="https://www.facebook.com/watch?ref=search&v=625274788061919&external_log_id=a251d10d-5ee8-4846-b2ec-4a9d1951971c&q=jaja%20chicken" target="_blank">
 									<div class="iframe-img">
 										<img src="{{asset('images/video2.jpg')}}" alt="" />
 									</div>
@@ -42,7 +42,7 @@
 						
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
-								<a href="#">
+								<a href="https://www.facebook.com/watch?ref=search&v=324136748972620&external_log_id=a251d10d-5ee8-4846-b2ec-4a9d1951971c&q=jaja%20chicken">
 									<div class="iframe-img">
 										<img src="{{asset('images/video3.png')}}" alt="" />
 									</div>
@@ -57,7 +57,7 @@
 						
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
-								<a href="#">
+								<a href="https://www.facebook.com/100057578524384/videos/1190447004623417" target="_blank">
 									<div class="iframe-img">
 										<img src="{{asset('images/video4.jpg')}}" alt="" />
 									</div>

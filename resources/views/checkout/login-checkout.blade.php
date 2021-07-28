@@ -49,15 +49,24 @@
                     <h2>Đăng nhập tài khoản</h2>
                     <form action="{{URL::to('/login')}}" method="POST">
                         {{ csrf_field() }}
-                        <input type="email" name="email_account" placeholder="Email Address" />
-                        <input type="password" name="password_account" placeholder="Password" />
+                        <input type="email" name="email_account" placeholder="Email " required/>
+                        <input type="password" name="password_account" placeholder="Password" required/>
                         <span>
                             <input type="checkbox" class="checkbox" value=""> 
-                            <p style="margin-top: 14px;">Lưu thông tin đăng nhập</p>
+                            <p style="margin-top: 14px;">Ghi nhớ tài khoản</p>
                         </span>
                         <span>
                             <p style="margin-top: 14px;"> <a href="{{URL::to('/quen-mat-khau')}}">Quên mật khẩu ?</a></p>
                         </span>
+                        @if(session()->has('message'))
+                            <div class="alert alert-success">
+                                {!! session()->get('message')!!}
+                            </div>
+                            @elseif(session()->has('error'))
+                            <div class="alert alert-danger">
+                                {!! session()->get('error')!!}
+                            </div>
+                            @endif
                         <center>
                             <button type="submit" class="btn btn-default">Đăng nhập</button>
                         </center>
@@ -83,29 +92,49 @@
                     <h2>Đăng kí nhanh</h2>
                     <form action="{{URL::to('/add-customer')}}" method="POST">
                         @csrf
-                        <input type="text" placeholder="Họ và tên" name="customer_name"/>
-                        <input type="email" placeholder="Email Address" name="customer_email"/>
-                        <input type="password" placeholder="Password" name="customer_password"/>
-                        <input type="text" placeholder="SĐT" name="customer_phone"/>
+                        <input type="text" placeholder="Họ và tên (*)" name="customer_name" 
+                        required 
+                        value="{{ old('customer_name')}}"/>
+                        @error('customer_name')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <input type="email" placeholder="Email (*)" name="email"  required 
+                        value="{{ old('email')}}"/>
+                        @error('email')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <input type="password" placeholder="Password (*)" name="customer_password"  required 
+                        value="{{ old('customer_password')}}"/>
+                        @error('customer_password')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <input type="text" placeholder="SĐT (*)" name="customer_phone" 
+                        value="{{ old('customer_phone')}}"/>
+                        @error('customer_phone')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                         <label for="">Địa chỉ</label>
-                        <select class="form-control choose city" name="city" id="city" >
+                        <select class="form-control choose city" name="city" id="city"  required 
+                         value="{{ old('city')}}">
                             <option value="">Chọn tỉnh/thành phố</option>
                           @foreach($city as $item)
                           <option value="{{$item->matp}}">{{$item->name}}</option>
                           @endforeach
                         </select>
                         <br/>
-                        <select class="form-control choose province" name="province" id="province" >
+                        <select class="form-control choose province" name="province" id="province" required 
+                        value="{{ old('province')}}" >
                             <option value="">Chọn quận huyện</option>
                             
                           </select>
                           <br/>
-                          <select class="form-control wards" name="wards" id="wards" >
+                          <select class="form-control wards" name="wards" id="wards" required  
+                          value="{{ old('wards')}}">
                             <option value="">Chọn xã phường</option>
                           </select>
                           <br/>
-                          <input type="text" class="form-control home" placeholder="Số nhà/Đường/Nghách"
-                          name = "home"
+                          <input type="text" class="form-control home" placeholder="Số nhà/Đường/Nghách" required
+                          name = "home"  value="{{ old('home')}}"
                    >
             
                         <center>
