@@ -59,11 +59,10 @@
                                 <input type="hidden" value="{{$product->name}}" class="cart_product_name_{{$product->id}}">
                                 <input type="hidden" value="{{$product->feature_image_path}}" class="cart_product_image_{{$product->id}}">
                                 <input type="hidden" value="{{$product->price}}" class="cart_product_price_{{$product->id}}">
-                                <input type="hidden" value="1" class="cart_product_qty_{{$product->id}}">
                                 <span>
                                 <span style="font-size: 25px">{{number_format($product->price)}} VNĐ</span>
                                 <label>Số lượng:</label>
-                                <input name="qty" type="text" value="1" min="1"/>
+                                <input name="qty" type="text" value="1" min="1" class="cart_product_qty_{{$product->id}}"/>
                                 <br/>
                                 <button type="button" class="btn btn-default add-to-cart" 
                                  data-id_product="{{$product->id}}" name="add-to-cart">Thêm giỏ hàng</button>

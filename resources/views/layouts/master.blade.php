@@ -254,6 +254,50 @@
           })
         });
     </script>
+    {{-- Tang giam so luong  --}}
+    <script>
+        $(function(){
+          var _token = $('input[name="_token"]').val();
+          $('.increase').click(function(){
+            var product_id_inc = $(this).data('id');
+            let value_inc = $(".value_"+product_id_inc).val();
+            let session_id = $(this).data('session_id');
+            $(".value_"+product_id_inc).val(++value_inc);
+            let qty = $(".value_"+product_id_inc).val();
+            $.ajax({
+              url: '{{url('/update-cart')}}',
+              method: 'POST',
+              data: {qty:qty,session_id:session_id,_token:_token},
+              success:function(data){
+                $("#sub_total_"+product_id_inc).html(data[0] + "đ"); 
+                $('#total').html(data[1] + "đ");
+              }
+            });
+          })
+          
+          $('.reduction').click(function(){
+            var product_id_dec = $(this).data('id');
+            let value_dec = $(".value_"+product_id_dec).val();
+            let session_id = $(this).data('session_id');
+            if (value_dec > 1) {
+              $(".value_"+product_id_dec).val(--value_dec);
+              let qty = $(".value_"+product_id_dec).val();
+              $.ajax({
+              url: '{{url('/update-cart')}}',
+              method: 'POST',
+              data: {qty:qty,session_id:session_id,_token:_token},
+              success:function(data){
+                $("#sub_total_"+product_id_dec).html(data[0] + "đ");  
+                $('#total').html(data[1] + "đ");     
+              }
+            });
+            } else {
+              $(".value_"+product_id_dec).val(1);
+            }
+          })
+          
+        });
+    </script>
     @yield('js')
     </body>
 </html>

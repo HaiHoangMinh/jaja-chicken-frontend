@@ -43,7 +43,7 @@ class CartController extends Controller
         if($cart==true){
             $is_available = 0;
             foreach($cart as $key => $val){
-                if($val['product_id']==$data['cart_product_id']){
+                if($val['product_id'] == $data['cart_product_id']){
                     $is_available++;
                 }
             }
@@ -57,6 +57,8 @@ class CartController extends Controller
                 'product_price' => $data['cart_product_price'],
                 );
                 Session::put('cart',$cart);
+            } else{
+                
             }
         }else{
             $cart[] = array(
@@ -64,7 +66,7 @@ class CartController extends Controller
                 'product_name' => $data['cart_product_name'],
                 'product_id' => $data['cart_product_id'],
                 'product_image' => $data['cart_product_image'],
-                'product_qty' => $data['cart_product_qty'],
+                'product_qty' => $data['cart_product_qty'] ,
                 'product_price' => $data['cart_product_price'],
 
             );
@@ -93,21 +95,27 @@ class CartController extends Controller
 
     public function update_cart(Request $request)
     {
-        $data =  $request->all();
         $cart = Session::get('cart');
+        $result = array();
+        $result[0] = $result[1] = 0;
         if($cart == true)
         {
-            foreach ($data['cart_qty'] as $key => $qty) {
                 foreach ($cart as $session => $val) {
-                    if ($val['session_id'] == $key) {
-                        $cart[$session]['product_qty'] = $qty;
+                    if ($val['session_id'] == $request->session_id) {
+                        $cart[$session]['product_qty'] = $request->qty;
+                        $result[0] += $cart[$session]['product_qty']*$cart[$session]['product_price'];
+                        $result[1] += $cart[$session]['product_qty']*$cart[$session]['product_price'];
+                    } else {
+                        $result[1] += $val['product_qty']*$val['product_price']; 
                     }
+                    
                 }
-            }
             Session::put('cart',$cart);
-            return redirect()->back();
+            $result[0] = number_format($result[0],0,',','.');
+            $result[1] = number_format($result[1],0,',','.');
+            return $result;
         } else {
-            return redirect()->back();
+            
         }
     }
     public function delete_all_product()
