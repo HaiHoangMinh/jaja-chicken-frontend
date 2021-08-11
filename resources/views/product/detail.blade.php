@@ -52,7 +52,6 @@
                         <div class="product-information"><!--/product-information-->
                             <h2>{{$product->name}}</h2>
                             <p>Product ID: {{$product->id}}</p>
-                            <img src="images/product-details/rating.png" alt="" />
                             <form action="#" method="POST">
                                 @csrf
                                 <input type="hidden" value="{{$product->id}}" class="cart_product_id_{{$product->id}}">
@@ -71,8 +70,8 @@
                             </form>
                                 <div class="div">
                                      <p><b>Tình trạng:</b> Còn món</p>
-								<p><b>Giao hàng:</b> Có</p>
-								<p><b>Cửa hàng:</b>JaJa-Chicken</p>
+								<p><b>Đánh giá:</b> {{$rating}}/5 - {{$rating_count}} đánh giá</p>
+								<p><b>Số lượt xem: </b>{{$product->view_count}}</p>
                                 <script async defer crossorigin="anonymous" 
                                 src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v11.0" nonce="KsfqTDTY"></script>
                                 <div class="fb-share-button" 
@@ -145,11 +144,7 @@
                         
                         <div class="tab-pane fade active in" id="reviews" >
                             <div class="col-sm-12">
-                                <ul>
-                                    <li><a href=""><i class="fa fa-user"></i>Hoang Long</a></li>
-                                    <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
-                                    <li><a href=""><i class="fa fa-calendar-o"></i>17/7/2021</a></li>
-                                </ul>
+                                
                                 <style>
                                     .style_feedback{
                                         border: 1px solid #ddd;
@@ -157,7 +152,7 @@
                                         background: #F0F0E9;
                                     }
                                 </style>
-                                <p><strong>Phản hồi từ khách hàng</strong></p>
+                                <p><strong>Các phản hồi từ khách hàng: </strong></p>
                                 <form>
                                     {{csrf_field()}}
                                     <input type="hidden" name="feedback_product_id" value="{{$product->id}}" 
@@ -168,6 +163,11 @@
                                 </form>
                                
                                @if(Session::get('customer_id'))
+                               <ul>
+                                <li><a href=""><i class="fa fa-user"></i>{{$customer->name}}</a></li>
+                                <li><a href=""><i class="fa fa-clock-o"></i>{{$now_time}}</a></li>
+                                <li><a href=""><i class="fa fa-calendar-o"></i>{{$now_date}}</a></li>
+                                </ul>
                                <p><strong>Đánh giá sản phẩm</strong></p>
                                <ul class="list-inline rating" title="Average Rating">
                                 @for($count=1;$count<=5;$count++)
@@ -190,7 +190,8 @@
                             </ul>
                                 <form >
                                     @csrf
-                                    <textarea name="feedback" class="feedback_content" ></textarea>
+                                    <label for=""><strong>Viết phản hồi: </strong></label>
+                                    <textarea name="feedback" class="feedback_content" placeholder="VD:hello"></textarea>
                                     
                                     <button type="button" class="btn btn-default pull-right send-feedback">
                                         Thêm phản hồi

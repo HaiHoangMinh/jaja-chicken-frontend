@@ -163,14 +163,16 @@
                 </td>
             </tr>
             @else
-            <tr>
-                <td colspan="5"><center>
-                    @php
-                    echo "Vui lòng thêm sản phẩm vào giỏ hàng" 
-                @endphp
-                </center></td>
+                <center><h3>
+                    <strong>
+                        @php
+                        echo "Vui lòng thêm sản phẩm vào giỏ hàng !" 
+                        @endphp
+                    </strong>
+                </h3>
+                   
+                </center>
                 
-            </tr>
             @endif
             </table>
             

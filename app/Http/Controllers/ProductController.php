@@ -31,10 +31,15 @@ class ProductController extends Controller
         $categories = Category::where('parent_id',0)->get();
         $productRecommend = Product::latest('view_count','desc')->take(12)->get();
         $rating = DB::table('rating')->where('product_id',$product_id)->avg('rating');
+        $rating_count = DB::table('rating')->where('product_id',$product_id)->count();
         $rating = round($rating);
         $url_con = $request->url();
-        return view('product.detail',compact('categoryLimit','product','categories','productRecommend',
-        'productSameTags','productImages','rating','url_con'));
+        $now_date = Carbon::now('Asia/Ho_Chi_Minh')->format('d/m/Y');
+        $now_time = Carbon::now('Asia/Ho_Chi_Minh')->format('H:i');
+        $customer_id = Session::get('customer_id');
+        $customer =  DB::table('customers')->where('id',$customer_id)->first();
+        return view('product.detail',compact('categoryLimit','product','categories','productRecommend','rating_count',
+        'productSameTags','productImages','customer','now_date','now_time','rating','url_con'));
     }
     public function list_menu()
     {
