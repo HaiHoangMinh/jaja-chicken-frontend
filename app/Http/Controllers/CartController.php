@@ -136,7 +136,7 @@ class CartController extends Controller
         $coupon = DB::table('coupons')->where('coupon_code',$data['coupon'])->first();
         $couponUsed = DB::table('coupons')->where('coupon_code',$data['coupon'])->
         where('coupon_used','like','%'.Session::get('customer_id').'%')->first();
-        if ($coupon && $coupon->coupon_status==1) {
+        if ($coupon && $coupon->coupon_status==1 ) {
             $count_coupon = $coupon->coupon_time;
             if ($couponUsed!=null) {
                 return redirect()->back()->with('message','Mã giảm giá đã sử dụng!');
@@ -151,6 +151,7 @@ class CartController extends Controller
                             'coupon_condition' => $coupon->coupon_condition,
                             'coupon_number' => $coupon->coupon_number,
                             'coupon_time' => $coupon->coupon_time,
+                            'coupon_limit' => $coupon->limit_bills,
                         );
                         Session::put('coupon',$cou);
                         
@@ -161,6 +162,7 @@ class CartController extends Controller
                         'coupon_condition' => $coupon->coupon_condition,
                         'coupon_number' => $coupon->coupon_number,
                         'coupon_time' => $coupon->coupon_time,
+                        'coupon_limit' => $coupon->limit_bills,
                     );
                     Session::put('coupon',$cou);
                 }
@@ -181,7 +183,7 @@ class CartController extends Controller
             Session::forget('coupon');
             return redirect()->back()->with('message','Đã xóa mã');
         }
-       
+        
     }
     
 }

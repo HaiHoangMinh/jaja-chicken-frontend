@@ -99,8 +99,33 @@
                         name="check_coupon">
                     </form>
                     <?php
+                    
+                        if(Session::get('coupon') != null)
+                        {
+                            foreach (Session::get('coupon') as $key => $cou) {
+                               if ($cou['coupon_limit'] <= $total) {
+                                   # code...
+                                   if ($cou['coupon_condition'] == 1) {
+                                    $result = $cou['coupon_number']/100 * $total;
+                                   } else {
+                                    $result = $cou['coupon_number'];
+                               }
+                               } else {
+                                   $result = 0;
+                                   Session::put('message',"Đơn hàng chưa đạt giá trị tối thiểu");
+                                   Session::forget('coupon');
+                               }
+                               
+                            }
+                        } else {
+                            $result = 0;
+                        }
+                        
+                    ?>
+                    <?php
                         $message = Session::get('message');
-                        echo $message;
+                        echo  '<span class="text" style="padding-left:20px;">'.$message.'.</span></br>';
+                        $message = Session::put('message',null);
                     ?>
                     @if(Session::get('coupon'))
                     <a class="btn btn-default check_out" href="{{url('/unset-coupon')}}" >Xóa mã </a>
@@ -112,22 +137,6 @@
                 <td></td>
                 <td >
                     <li style="margin-top: -15px">Tổng tiền món ăn: <span id="total">{{number_format($total,0,',','.')}}đ</span></li>
-                    <?php
-                    
-                        if(Session::get('coupon') != null)
-                        {
-                            foreach (Session::get('coupon') as $key => $cou) {
-                               if ($cou['coupon_condition'] == 1) {
-                                  $result = $cou['coupon_number']/100 * $total;
-                               } else {
-                                $result = $cou['coupon_number'];
-                               }
-                            }
-                        } else {
-                            $result = 0;
-                        }
-                        
-                    ?>
                     <li>Tiền giảm: {{number_format($result,0,',','.')}}đ</span></li>
                     <li>Tiền phải trả: <span>{{number_format($total-$result,0,',','.')}}đ</span></li>
                     
