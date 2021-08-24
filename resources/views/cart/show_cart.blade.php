@@ -64,7 +64,7 @@
                                 data-session_id="{{$cart['session_id']}}"> - </button>
                                 
                                 <input class="cart_quantity_input value_{{$cart['product_id']}}" type="number"
-                                 value="{{$cart['product_qty']}}" min="1" id="value">
+                                 value="{{$cart['product_qty']}}" min="1" id="value" disabled>
                                  <button type="button" class="btn btn-default increase" 
                                  data-id="{{$cart['product_id']}}" 
                                  data-session_id="{{$cart['session_id']}}"> + </button>  
@@ -138,7 +138,7 @@
                 <td >
                     <li style="margin-top: -15px">Tổng tiền món ăn: <span id="total">{{number_format($total,0,',','.')}}đ</span></li>
                     <li>Tiền giảm: {{number_format($result,0,',','.')}}đ</span></li>
-                    <li>Tiền phải trả: <span>{{number_format($total-$result,0,',','.')}}đ</span></li>
+                    <li>Tiền phải trả: <span id="total2">{{number_format($total-$result,0,',','.')}}đ</span></li>
                     
                 </td>
                 <br>

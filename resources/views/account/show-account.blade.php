@@ -52,8 +52,8 @@
                     <div class="col-md-8">
                         <p style="color: red"><strong>Xin chào!</strong></p>
                         <h3><strong>{{$customer->name}}</strong></h3>
-                        <span>Lần truy cập trước: </span>
-                        <br/><span>Loại tài khoản: </span>
+                        <span>Tham gia từ: {{$customer->created_at}}</span>
+                        <br/><span>Loại tài khoản: Member</span>
                     </div>
                 </div>
             </div>

@@ -69,10 +69,11 @@ class CheckoutController extends Controller
         $province . " - " . 
         $city;
         $data['password'] = md5($request->customer_password);
+        $data['feature_image_path'] = '/storage/customer/N4nu1xqUXyylBg2yJ8nf.png';
         
         $customer_id = DB::table('customers')->insertGetId($data);
         Session::put('customer_id',$customer_id);
-        Session::put('name',$request->customer_name);
+        Session::put('customer_name',$request->customer_name);
         return Redirect('/');
     }
    
@@ -240,7 +241,7 @@ class CheckoutController extends Controller
                 $vnp_HashSecret = "GSAUHQVPKWRFWBELVNVIZQPIWOGTQYXK"; //Chuỗi bí mật
                 $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
                 $vnp_Returnurl = "http://www.jajachicken.com/return-vnpay";
-                $vnp_TxnRef = date("YmdHis"); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+                $vnp_TxnRef = date("YmdHis"); //Mã đơn hàng. 
                 $vnp_OrderInfo = "Thanh toan don hang Jaja. So tien:".$total." VND";
                 $vnp_OrderType = 'billpayment';
                 $vnp_Amount = $total * 100;

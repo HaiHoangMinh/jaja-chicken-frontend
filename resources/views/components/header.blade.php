@@ -41,7 +41,7 @@
 								<?php 
 									$customer_id = Session::get('customer_id');
 									$customer_name = Session::get('customer_name');
-									if ($customer_id!=null) {
+									if ($customer_id != null) {
 										
 									
 								?>

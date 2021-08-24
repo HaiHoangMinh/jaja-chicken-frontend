@@ -201,7 +201,7 @@
                                 text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
                                 showCancelButton: true,
                                 cancelButtonText: "Xem tiếp",
-                                confirmButtonClass: "btn-success",
+                                confirmButtonClass: "btn-danger",
                                 confirmButtonText: "Đi đến giỏ hàng",
                                 closeOnConfirm: false
                             },
@@ -271,6 +271,7 @@
               success:function(data){
                 $("#sub_total_"+product_id_inc).html(data[0] + "đ"); 
                 $('#total').html(data[1] + "đ");
+                $('#total2').html(data[1] + "đ"); 
               }
             });
           })
@@ -288,7 +289,8 @@
               data: {qty:qty,session_id:session_id,_token:_token},
               success:function(data){
                 $("#sub_total_"+product_id_dec).html(data[0] + "đ");  
-                $('#total').html(data[1] + "đ");     
+                $('#total').html(data[1] + "đ");   
+                $('#total2').html(data[1] + "đ");   
               }
             });
             } else {
@@ -298,6 +300,15 @@
           
         });
     </script>
+    <script>
+      $("#cart_items").ready(function() {
+          setInterval('refreshPage()', 120000);
+      });
+  
+      function refreshPage() { 
+          location.reload(); 
+      }
+  </script>
     @yield('js')
     </body>
 </html>
