@@ -9,6 +9,7 @@ use App\Product;
 use App\Slider;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -240,7 +241,7 @@ class CheckoutController extends Controller
                 $vnp_TmnCode = "OW78ECMO"; //Mã website tại VNPAY 
                 $vnp_HashSecret = "GSAUHQVPKWRFWBELVNVIZQPIWOGTQYXK"; //Chuỗi bí mật
                 $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-                $vnp_Returnurl = "http://www.jajachicken.com/return-vnpay";
+                $vnp_Returnurl = URL::to("/return-vnpay");
                 $vnp_TxnRef = date("YmdHis"); //Mã đơn hàng. 
                 $vnp_OrderInfo = "Thanh toan don hang Jaja. So tien:".$total." VND";
                 $vnp_OrderType = 'billpayment';
