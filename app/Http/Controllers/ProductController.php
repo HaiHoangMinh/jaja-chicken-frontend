@@ -32,6 +32,7 @@ class ProductController extends Controller
         $productRecommend = Product::latest('view_count','desc')->take(12)->get();
         $rating = DB::table('rating')->where('product_id',$product_id)->avg('rating');
         $rating_count = DB::table('rating')->where('product_id',$product_id)->count();
+        $feedback_count = DB::table('feedbacks')->where('product_id',$product_id)->where('status',1)->count();
         $rating = round($rating);
         $url_con = $request->url();
         $now_date = Carbon::now('Asia/Ho_Chi_Minh')->format('d/m/Y');
@@ -39,7 +40,7 @@ class ProductController extends Controller
         $customer_id = Session::get('customer_id');
         $customer =  DB::table('customers')->where('id',$customer_id)->first();
         return view('product.detail',compact('categoryLimit','product','categories','productRecommend','rating_count',
-        'productSameTags','productImages','customer','now_date','now_time','rating','url_con'));
+        'productSameTags','productImages','customer','now_date','now_time','rating','url_con','feedback_count'));
     }
     public function list_menu()
     {

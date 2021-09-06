@@ -129,7 +129,7 @@ class CheckoutController extends Controller
         //insert bills
         $bills_data = array();
         $bills_data['shipping_id'] = $shipping_id;
-        $bills_data['status'] = "Đang chuẩn bị";
+        $bills_data['status'] = 1;
         $bills_data['date_order'] = Carbon::now('Asia/Ho_Chi_Minh');
         $bills_data['payment_id'] = $payment_id;
         $bills_data['note'] = $request->shipping_note;

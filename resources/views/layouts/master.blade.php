@@ -77,7 +77,6 @@
                       
                     }
                 });
-
             });
     </script>
     {{-- Hover danh gia sao --}}
@@ -130,7 +129,6 @@
     <script>
       $(document).ready(function(){
         load_feedback();
-
         function load_feedback() {
               var product_id = $('.feedback_product_id').val();
               var _token = $('input[name="_token"]').val();
@@ -174,7 +172,6 @@
               method: 'GET',
               success:function(data){
                 $('#show-cart').html("("+data+")");
-
               }
             });
         }
@@ -211,7 +208,6 @@
                             show_cart();
                     }
                 });
-
             });
         });
     </script>
