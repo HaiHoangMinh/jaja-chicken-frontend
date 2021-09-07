@@ -3,6 +3,9 @@
 <title>Giỏ hàng</title>
 @endsection
 
+@section('css')
+    <link rel="stylesheet" href="{{asset('home/home.css')}}">
+@endsection
 
 @section('content')
 <section id="cart_items">

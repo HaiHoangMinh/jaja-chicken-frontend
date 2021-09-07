@@ -31,7 +31,7 @@
                                     <a href="{{URL::to('khuyen-mai/'.$promotion->id.'/'.$promotion->slug)}}">
                                         <img src="{{config('app.base_url').$promotion->feature_image_path}}" alt="" />
                                      </a>
-                                    <div class="col-sm-12" style="height: 200px">
+                                    <div class="col-sm-12" style="height: 250px">
                                         <div >
                                             <a href="{{URL::to('khuyen-mai/'.$promotion->id.'/'.$promotion->slug)}}">
                                                 <h4>{{$promotion->title}}</h4>

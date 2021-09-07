@@ -9,8 +9,8 @@
             @endif
             <div class="col-sm-3" style="margin-left: 55px ">
                 <div class="product-image-wrapper">
-                    <div class="single-products">
-                        <div class="productinfo text-center">
+                    <div class="single-products ">
+                        <div class="productinfo text-center ">
                             <form>
                                 @csrf
                                 <input type="hidden" value="{{$product->id}}" class="cart_product_id_{{$product->id}}">

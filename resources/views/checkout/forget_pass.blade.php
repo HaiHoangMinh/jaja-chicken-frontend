@@ -3,6 +3,7 @@
     <title>Quên mật khẩu</title>
 @endsection
 
+
 @section('css')
     <link rel="stylesheet" href="{{asset('home/home.css')}}">
     <style>

@@ -6,6 +6,7 @@
 /* md */
 
 @media (min-width: 992px) and (max-width: 1199px) {
+
     .header-middle .btn-group .btn {
         padding-left: 8px;
         padding-right: 8px;
@@ -22,9 +23,6 @@
     .product-information span span {
         width: 100%;
     }
-    #similar-product .carousel-inner .item img {
-        width: 65px;
-    }
     #cart_items .cart_info .cart_description h4,
     #cart_items .cart_info .cart_description p {
         text-align: center;
@@ -37,9 +35,17 @@
 @media (min-width: 768px) and (max-width: 991px) {
     .shop-menu{
         display: block;
-        width: 100%;
         text-align: center;
+        margin-top: -100px !important;
     }
+    .productinfo img {
+        width: 100%;
+        height: 200px;
+    }
+    .carousel-inner div {
+        width: 95%;
+    }
+    
     .shop-menu ul{
         display: inline-block;
         float: none;
@@ -78,10 +84,6 @@
         display: inline-block;
         width: 40%;
     }
-    #similar-product .carousel-inner .item img {
-        width: 60px;
-        margin-left: 0;
-    }
     .product-information span span {
         display: block;
         width: 100%;
@@ -115,6 +117,20 @@
 /* xs */
 
 @media (max-width: 767px) {
+    .check-out span {
+        font-size: 18px;
+        font-weight: 800;
+    }
+    .check-out {
+        height: 350px !important;
+    }
+    .check-out a {
+        font-size: 15px !important;
+    }
+    .check-out .btn-checkout {
+        width: 102%;
+        font-weight: 800;
+    }
     #cart_items .cart_info table{
         min-width: 600px;
     }
@@ -151,6 +167,10 @@
         display: inline-block;
         overflow: inherit;
         width: 100%;
+        padding-bottom: 10px;
+    }
+    .header-middle {
+        height: 250px;
     }
     .social-icons ul li a i {
         padding: 8px 10px;
@@ -167,11 +187,13 @@
     }
     .mainmenu {
         width: 100%;
+        
     }
     .mainmenu ul li {
         background: rgba(0, 0, 0, 0.5);
         padding-top: 15px;
         padding-bottom: 0;
+        z-index: 1;
     }
     .mainmenu ul li:last-child {
         padding-bottom: 15px;
@@ -184,10 +206,12 @@
     }
     .mainmenu ul li a.active {
         padding-left: 15px;
+        
     }
     .dropdown .fa-angle-down {
         display: none;
     }
+
     ul.sub-menu {
         position: relative;
         width: auto;
@@ -220,7 +244,7 @@
         top: 38px;
     }
     #slider-carousel .item {
-        padding-left: 0;
+        margin-left: 0;
     }
     .shipping {
         margin-bottom: 25px;
@@ -254,6 +278,12 @@
     }
     #similar-product {
         margin-bottom: 40px;
+    }
+    .iframe-img {
+        height: 250px;
+    }
+    .address img {
+        height: 150px;
     }
     .well {
         display: inline-block;
@@ -427,9 +457,7 @@
     .category-tab .nav-tabs li {
         float: none;
     }
-    #similar-product .carousel-inner .item img {
-        margin-left: 4px;
-    }
+
     .product-information {
         margin-top: 40px;
     }
