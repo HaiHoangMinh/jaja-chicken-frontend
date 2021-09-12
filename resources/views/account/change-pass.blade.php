@@ -69,8 +69,6 @@
                         <li><a href="{{URL::to('/doi-dia-chi')}}">Địa chỉ giao hàng</a></li>
                         <br/>
                         <li><a href="{{URL::to('/vi-coupon')}}">Mã khuyến mãi</a></li>
-                        <br/>
-                        <li><a href="{{URL::to('/thong-bao')}}">Thông báo</a></li>
                         <hr/>
                         <li><a href="{{URL::to('/logout-checkout')}}">Đăng xuất</a></li>
                     </ul>

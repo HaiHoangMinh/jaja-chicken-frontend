@@ -54,23 +54,23 @@ class ProductController extends Controller
             
             if($sort_by == 'giam_dan')
             {
-                $products = DB::table('products')->orderBy('price','DESC')->paginate(9)->
+                $products = DB::table('products')->where('deleted_at',NULL)->orderBy('price','DESC')->paginate(9)->
                 appends(request()->query());
             } elseif($sort_by == 'tang_dan')
             {
-                $products = DB::table('products')->orderBy('price','ASC')->paginate(9)->
+                $products = DB::table('products')->where('deleted_at',NULL)->orderBy('price','ASC')->paginate(9)->
                 appends(request()->query());
             } elseif($sort_by == 'kitu_az')
             {
-                $products = DB::table('products')->orderBy('name','ASC')->paginate(9)->
+                $products = DB::table('products')->where('deleted_at',NULL)->orderBy('name','ASC')->paginate(9)->
                 appends(request()->query());
             }elseif($sort_by == 'kitu_za')
             {
-                $products = DB::table('products')->orderBy('name','DESC')->paginate(9)->
+                $products = DB::table('products')->where('deleted_at',NULL)->orderBy('name','DESC')->paginate(9)->
                 appends(request()->query());
             }
         } else {
-            $products = DB::table('products')->paginate(9);
+            $products = DB::table('products')->where('deleted_at',NULL)->paginate(9);
         }
         
         return view('product.list-menu',compact('categoryLimit','products','categories','productRecommend'));
