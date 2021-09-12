@@ -21,7 +21,7 @@
 									</div>
 								</a>
 								<p>Giới thiệu JAJA</p>
-								<h2>04 DEC 2019</h2>
+								<h2>04/12/2019</h2>
 							</div>
 						</div>
 						
@@ -36,7 +36,7 @@
 									</div>
 								</a>
 								<p>Quy trình sản xuất</p>
-								<h2>02 SEP 2020</h2>
+								<h2>02/09/2020</h2>
 							</div>
 						</div>
 						
@@ -51,7 +51,7 @@
 									</div>
 								</a>
 								<p>Sự kiện JAJA</p>
-								<h2>25 OCT 2020</h2>
+								<h2>25/10/2020</h2>
 							</div>
 						</div>
 						
@@ -66,7 +66,7 @@
 									</div>
 								</a>
 								<p>Chúc mừng năm mới</p>
-								<h2>01 JAN 2021</h2>
+								<h2>01/01/2021</h2>
 							</div>
 						</div>
 					</div>
