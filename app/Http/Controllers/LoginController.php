@@ -33,12 +33,11 @@ class LoginController extends Controller
     public function callback_facebook(){
         $provider = Socialite::driver('facebook')->user();
         $account = Social::where('provider','facebook')->where('provider_customer_id',$provider->getId())->first();
-        
         if($account){
             $account_name = DB::table('customers')->where('id',$account->customer)->first();
             Session::put('customer_login',$account_name->name);
             Session::put('customer_id',$account_name->id);
-            return redirect('/')->with('message', 'Đăng nhập thành công');
+            return redirect('/khach-hang')->with('message', 'Đăng nhập thành công');
         }else{
 
             $customer = new Social([
@@ -49,7 +48,7 @@ class LoginController extends Controller
             $orang = DB::table('customers')->where('email',$provider->getEmail())->first();
 
             if(!$orang){
-                $orang = DB::table('customers')->create([
+                $orang = DB::table('customers')->insert([
                     'name' => $provider->getName(),
                     'email' => $provider->getEmail(),
                     'password' => '',
@@ -64,7 +63,7 @@ class LoginController extends Controller
 
             Session::put('customer_login',$account_name->name);
              Session::put('customer_id',$account_name->id);
-            return redirect('/')->with('message', 'Đăng nhập thành công');
+            return redirect('/khach-hang')->with('message', 'Đăng nhập thành công');
         } 
     }
 
@@ -76,45 +75,46 @@ public function callback_google(){
         // return $users->id;
         $authUser = $this->findOrCreateUser($users,'google');
         $account_name = Login::where('id',$authUser->customer)->first();
-        //dd($account_name);
         Session::put('customer_name',$account_name->name);
         Session::put('customer_id',$account_name->id);
-        return redirect('/')->with('message', 'Đăng nhập thành công');
+        return redirect('/khach-hang')->with('message', 'Đăng nhập thành công');
       
        
     }
     public function findOrCreateUser($users,$provider){
         $authUser = Social::where('provider_customer_id', $users->id)->first();
+        
         if($authUser){
 
             return $authUser;
         };
-        $customer = new Social([
-            'provider_customer_id' => $users->id,
-            'provider' => 'google',
-        ]);
+        
 
         $orang = Login::where('email',$users->email)->first();
 
             if(!$orang){
-                $orang = DB::table('customers')->create([
+                $orang = DB::table('customers')->insert([
                     'name' => $users->name,
                     'email' => $users->email,
                     'password' => '',
                     'address' => '',
                     'phone_number' => '',
                 ]);
+              
             }
-        $customer->login()->associate($orang);
+            $id = DB::table('customers')->where('email',$users->email)->first()->id;
+            $customer = new Social([
+                'provider_customer_id' => $users->id,
+                'provider' => 'google',
+                'customer' => $id,
+            ]);
         $customer->save();
-
-        $account_name =Login::where('id',$authUser->customer)->first();
-        Session::put('customer_name',$account_name->name);
-        Session::put('customer_id',$account_name->id);
-        Session::save();
-        return redirect('/')->with('message', 'Đăng nhập thành công');
-
-
+        $customer->login()->associate($orang);
+        $authUser = Social::where('provider_customer_id', $users->id)->first();
+        if($authUser){
+            return $authUser;
+        };
+        
     }
 
 }
