@@ -28,9 +28,7 @@
     img{
         border-radius: 50% !important;
     }
-    a:hover {
-        border-bottom: 1px solid red;
-    }
+   
     td {
         font-size: 15px !important;
     }

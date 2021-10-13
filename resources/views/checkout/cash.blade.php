@@ -22,8 +22,11 @@
 						<h2 class="title text-center">Cảm ơn bạn đã đặt hàng tại JAJA</h2>
                         <br/>
 						<center>
-							<h3>Vui lòng chuẩn bị số tiền thanh toán khi nhận hàng</h3>
+							<h3>Đơn hàng sẽ đến nhanh thôi !! </h3>
                         	<br/>
+							<h3>Vui lòng chuẩn bị số tiền thanh toán khi nhận hàng!</h3>
+							<br/>
+							<h3>Chúc bạn một ngày tốt lành!</h3>
                         	<form action="{{route('home')}}">
                             <input type="submit" value="Quay lại trang chủ" class="btn btn-default" />
                         </form>

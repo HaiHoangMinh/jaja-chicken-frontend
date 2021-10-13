@@ -29,9 +29,7 @@
     img{
         border-radius: 50% !important;
     }
-    a:hover {
-        border-bottom: 1px solid red;
-    }
+    
 </style>
 @section('js')
     <link rel="stylesheet" href="{{asset('home/home.js')}}">

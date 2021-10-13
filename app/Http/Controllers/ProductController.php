@@ -93,10 +93,10 @@ class ProductController extends Controller
                   <img src="'.$image.'" alt="" class="cus_img">
             </div>
             <div class="col-md-9">
-                <p style="color:green;">@ '.$name.'</p>
-                <p style="color:darkred;"> '.$value->date.'</p>
+                <p style="color:green !important;">@ '.$name.'</p>
+                <p style="color:darkred !important;"> '.$value->date.'</p>
                 <p>' .$value->content.'</p>
-                <p style="color:red;">Trả lời từ JAJA:</p>
+                <p style="color:red !important;">Trả lời từ JAJA:</p>
                 <p>' .$value->reply.'</p>
                 </div>
             </div>

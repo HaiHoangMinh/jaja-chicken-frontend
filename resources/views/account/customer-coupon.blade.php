@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Đổi địa chỉ giao hàng</title>
+    <title>Xem mã giảm giá</title>
 @endsection
 
 @section('css')
@@ -29,9 +29,7 @@
     img{
         border-radius: 50% !important;
     }
-    a:hover {
-        border-bottom: 1px solid red;
-    }
+   
 </style>
 @section('js')
     <link rel="stylesheet" href="{{asset('home/home.js')}}">
