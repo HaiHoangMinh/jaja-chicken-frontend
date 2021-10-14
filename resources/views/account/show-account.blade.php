@@ -114,10 +114,9 @@
                                                 <br/>
                                                 <span>{{$customer->address}}</span>
                                                 <br/>
-                                                <a href="">Đổi địa chỉ giao hàng</a>
+                                                <a href="{{URL::to('/doi-dia-chi')}}">Đổi địa chỉ giao hàng</a>
                                               </div>
-                                              <input type="checkbox" name="" id="" >
-                                              <label>Gửi email cho tôi những ưu đãi của JAJA</label>
+                                              
                                               <input type="submit" value="Cập nhật thông tin" class="btn btn-primary ">
                                             </form>
     

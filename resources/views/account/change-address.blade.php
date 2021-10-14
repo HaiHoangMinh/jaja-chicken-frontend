@@ -80,26 +80,26 @@
                                 <form action="{{URL::to('/update-address')}}" method="POST">
                                     @csrf                                        
                                     <label for="">Địa chỉ</label>
-                        <select class="form-control choose city" name="city" id="city" >
+                        <select class="form-control choose city" name="city" id="city" required >
                             <option value="">Chọn tỉnh/thành phố</option>
                           @foreach($city as $item)
                           <option value="{{$item->matp}}">{{$item->name}}</option>
                           @endforeach
                         </select>
                         <br/>
-                        <select class="form-control choose province" name="province" id="province" >
+                        <select class="form-control choose province" name="province" id="province" required >
                             <option value="">Chọn quận huyện</option>
                             
                           </select>
                           <br/>
-                          <select class="form-control wards" name="wards" id="wards" >
+                          <select class="form-control wards" name="wards" id="wards"  required >
                             <option value="">Chọn xã phường</option>
                           </select>
                           <br/>
                           <input type="text" class="form-control home" placeholder="Số nhà/Đường/Nghách"
-                          name = "home">
+                          name = "home" required>
                                               
-                            <input type="submit" value="Cập nhật địa chỉ" class="btn btn-primary ">
+                            <input type="submit" value="Cập nhật địa chỉ" class="btn btn-primary " >
                         </form>
     
                         </div>

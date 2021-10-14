@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -53,6 +54,8 @@ class AccountController extends Controller
                 
                 $feature_image_path = $dataUploadFeatureImage['file_path'];
                
+            } else {
+                $feature_image_path = "https://fv2-1.failiem.lv/thumb_show.php?i=8vuneb5jj&view";
             }
             DB::table('customers')
             ->where('id',$customer_id)
@@ -70,13 +73,22 @@ class AccountController extends Controller
      public function update_password(Request $request)
      {
         $customer_id = Session::get('customer_id');
-        
+        $customer = DB::table('customers')->where('id',$customer_id)->first();
         if($customer_id)
         {
-             if (md5($request->old_password)) {
-                 # code...
+             if (md5($request->old_password) == md5($customer->password)) {
+                if ($request->new_password == $request->new_repassword ) {
+                    DB::table('customers')->update([
+                        'password' =>md5($request->new_password),
+                    ]);
+                    return redirect()->back()->with('success','Đã thay đổi mật khẩu!');
+                } else {
+                    return redirect()->back()->with('errors','Mật khẩu nhập lại không khớp!');
+                }
+             } else {
+                return redirect()->back()->with('errors','Bạn nhập sai mật khẩu cũ!');
              }
-             return redirect()->back()->with('message','Đã thay đổi mật khẩu!');
+             
         } else {
             return redirect('login-checkout');
         }
@@ -116,6 +128,7 @@ class AccountController extends Controller
             return redirect('login-checkout');
         }
      }
+     
      public function change_address()
      {
         $customer_id = Session::get('customer_id');

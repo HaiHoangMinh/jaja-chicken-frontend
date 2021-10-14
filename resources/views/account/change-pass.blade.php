@@ -83,29 +83,38 @@
                                                 <label >Mật khẩu cũ:</label>
                                                 <input type="password" class="form-control" placeholder="Nhập mật khẩu cũ"
                                                        name = "old_password"
-                                                       value=""
+                                                       required
                                                 >
                                         </div>
                                     <div class="form-group">
                                             <label >Mật khẩu mới:</label>
                                             <input type="password" class="form-control" placeholder="Nhập mật khẩu mới"
                                                    name = "new_password"
-                                                   value=""
+                                                   required
                                             >
                                     </div>
+                                   
                                     <div class="form-group">
                                         <label >Nhập lại mật khẩu mới:</label>
                                         <input type="password" class="form-control" placeholder="Nhập lại mật khẩu mới"
-                                               name = "renew_password"
-                                               value=""
+                                               name = "new_repassword"
+                                               required
                                         >
                                 </div>
+                                
                                 <?php
-                                        
+                                if (Session::get('success')) {
+                                    $message = Session::get('success');
+                                    echo  '<span class="text" style="color:green;">'.$message.'.</span></br>';
+                                } else {
+                                    $message = Session::get('errors');
+                                    echo  '<span class="text" style="color:darkred;">'.$message.'.</span></br>';
+                                }
+
                                 ?>
                                               
                                               <input type="submit" value="Đổi mật khẩu" class="btn btn-primary ">
-                                            </form>
+                                    </form>
     
                         </div>
                     
